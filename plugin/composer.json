@@ -1,0 +1,6 @@
+{
+    "name": "root/plugin",
+    "require": {
+        "phpmailer/phpmailer": "^6.0"
+    }
+}
