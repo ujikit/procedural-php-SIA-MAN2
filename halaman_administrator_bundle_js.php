@@ -61,47 +61,29 @@ $('.datepicker').datepicker({
 			$("#delete").load("halaman_administrator_delete_pegawai.php?id_pegawai="+id_pegawai+"&nip_pegawai="+nip_pegawai);
 		}
 
-		// Dapatkan data mata pelajaran select option sesuai jabatan (Panel pegawai -> tambah pegawai)
-		function getJabatanToMataPelajaran(x) {
-			$.ajax({
-			type: "POST",
-			url: "backend/get_administratorJabatanToMataPelajaran.php",
-			data:'nama_jabatan='+x,
-			success: function(data){
-				$("#jabatanByMataPelajaran").html(data);
-			}
-			});
-		}
 // Event tombol main pegawai halaman_administrator.php (edit,delete,tampil)
 		//panel kelas dan wali kelas
 
     //Event tombol pengampu mata pelajaran halaman_administrator_pengampu_mata_pelajaran.php (tampil,edit,delete) didalam halaman daftar_kelas.php
+		function detailSemuaPengampuMataPelajaran(x){
+			var kd_kelas_daftar_kelas_transaksi=x;
+			$("#tampilPengampuMataPelajaran").load("halaman_administrator_daftar_guru_pengampu_mata_pelajaran_perkelas.php?kd_kelas_daftar_kelas_transaksi="+kd_kelas_daftar_kelas_transaksi);
+		}
 		function kembaliKePanelKelas(x){
 		  var kembaliKePanelKelass=x;
 			$("#bodyDaftarKelas").load("halaman_administrator_daftar_kelas_dan_wali_kelas.php?kembaliKePanelKelass="+kembaliKePanelKelass);
 		}
-
-		function detailKelas(x){
-			var id_kelas_transaksi=x;
-			$("#detailKelas").modal("show");
-			$("#tampil").load("halaman_administrator_detail_kelas_dan_wali_kelas.php?id_kelas_transaksi="+id_kelas_transaksi);
-		}
 		function editKelas(x){
-			var id_kelas_transaksi=x;
+			var kd_kelas_daftar_kelas_transaksi=x;
 			$("#editKelas").modal("show");
-			$("#edit").load("halaman_administrator_edit_kelas_dan_wali_kelas.php?id_kelas_transaksi="+id_kelas_transaksi);
+			$("#edit").load("halaman_administrator_edit_kelas_dan_wali_kelas.php?kd_kelas_daftar_kelas_transaksi="+kd_kelas_daftar_kelas_transaksi);
 		}
 		function deleteKelas(x,y){
-			var id_kelas_transaksi=x;
-			var id_kelas_daftar=y;
+			var kd_kelas_daftar_kelas_transaksi=x;
 			$("#deleteKelas").modal("show");
-			$("#delete").load("halaman_administrator_delete_kelas_dan_wali_kelas.php?id_kelas_transaksi="+id_kelas_transaksi+"&id_kelas_daftar="+id_kelas_daftar);
+			$("#delete").load("halaman_administrator_delete_kelas_dan_wali_kelas.php?kd_kelas_daftar_kelas_transaksi="+kd_kelas_daftar_kelas_transaksi);
 		}
 
-		function detailSemuaPengampuMataPelajaran(x){
-			var id_kelas_daftar=x;
-			$("#tampilPengampuMataPelajaran").load("halaman_administrator_daftar_guru_pengampu_mata_pelajaran_perkelas.php?id_kelas_daftar="+id_kelas_daftar);
-		}
 		//setelah masuk fungsi detailSemuaPengampuMataPelajaran
     function detailPengampuMataPelajaran(x){
       var id_mata_pelajaran_transaksi=x;
@@ -136,29 +118,6 @@ $('.datepicker').datepicker({
 		function detailSemuaSiswaPerKelas_NilaiPerSiswa(x){
 			var nis_siswa=x;
 			$("#tampilSiswaPerKelas").load("halaman_administrator_daftar_siswa_perkelas_nilai.php?nis_siswa="+nis_siswa);
-		}
-
-		// Dapatkan data Pelajaran select option sesuai guru (Panel kelas dan wali kelas -> Lihat guru pengampu -> tambah pengampu mata pelajaran)
-		function getMataPelajaranToGuru(x) {
-			$.ajax({
-			type: "POST",
-			url: "backend/get_administratorMataPelajaranToGuru.php",
-			data:'nama_mata_pelajaran_transaksi='+x,
-			success: function(data){
-				$("#mataGuruByPelajaran").html(data);
-			}
-			});
-		}
-		// Dapatkan data Pelajaran select option sesuai ID mata pelajaran (Panel kelas dan wali kelas -> Lihat guru pengampu -> tambah pengampu mata pelajaran)
-		function getMataPelajaranToIDMataPelajaran(x) {
-			$.ajax({
-			type: "POST",
-			url: "backend/get_administratorMataPelajaranToIDMataPelajaran.php",
-			data:'nama_mata_pelajaran_transaksi='+x,
-			success: function(data){
-				$("#mataGuruByIDMataPelajaran").html(data);
-			}
-			});
 		}
 
 		//AJAX kelas dan wali kelas

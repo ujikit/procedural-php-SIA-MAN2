@@ -1,7 +1,7 @@
 <?php
 include_once "backend/koneksi.php";
 $id_pegawai = $_GET['id_pegawai'];
-$query = mysqli_query($connect, "select * from data_pegawai where id_pegawai='$id_pegawai'");
+$query = mysqli_query($connect, "SELECT * from data_pegawai inner join mata_pelajaran on data_pegawai.kd_mata_pelajaran_pegawai = mata_pelajaran.kd_mata_pelajaran where id_pegawai='$id_pegawai'");
 $tampil = mysqli_fetch_array($query, MYSQLI_ASSOC);
 
  ?>
@@ -52,7 +52,7 @@ $tampil = mysqli_fetch_array($query, MYSQLI_ASSOC);
               <div class="row">
               <div class="col-lg-4">
                   <label for="sel1">Pengampu Mata Pelajaran : </label>
-                    <input type="text" class="form-control" name="nama_mata_pelajaran_pegawai" value="<?php echo $tampil["nama_mata_pelajaran_pegawai"]?>" readonly>
+                    <input type="text" class="form-control" name="nama_mata_pelajaran_pegawai" value="<?php echo $tampil["nama_mata_pelajaran"]?>" readonly>
                   </br>
               </div>
               <div class="col-lg-4">

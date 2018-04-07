@@ -1,12 +1,13 @@
 <?php
 include_once "koneksi.php";
 
-$id_kelas_daftar      = str_replace(' ','',$_POST['nama_kelas_transaksi']);
-$id_kelas_transaksi = $_POST['id_kelas_transaksi'];
-$nama_kelas_transaksi = $_POST['nama_kelas_transaksi'];
-$wali_kelas_transaksi = $_POST['wali_kelas_transaksi'];
+$kd_kelas_daftar_kelas_transaksi   = $_POST['kd_kelas_daftar_kelas_transaksi'];
+$nip_pegawai_wali_kelas_transaksi  = $_POST['nip_pegawai_wali_kelas_transaksi'];
 
-$query_update = "UPDATE kelas_transaksi set id_kelas_daftar='$id_kelas_daftar', nama_kelas_transaksi='$nama_kelas_transaksi', wali_kelas_transaksi='$wali_kelas_transaksi' where id_kelas_transaksi='$id_kelas_transaksi'";
+echo $kd_kelas_daftar_kelas_transaksi;
+echo $nip_pegawai_wali_kelas_transaksi;
+
+$query_update = "UPDATE kelas_transaksi set kd_kelas_daftar_kelas_transaksi='$kd_kelas_daftar_kelas_transaksi', nip_pegawai_wali_kelas_transaksi='$nip_pegawai_wali_kelas_transaksi' where kd_kelas_daftar_kelas_transaksi='$kd_kelas_daftar_kelas_transaksi'";
 
 if (mysqli_query($connect, $query_update)){
 

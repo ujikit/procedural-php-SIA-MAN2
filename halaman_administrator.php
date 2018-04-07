@@ -51,7 +51,7 @@ if($_SESSION['nip_administrator']){
                   </div>
                   <div class="col-xs-6 text-right">
                     <?php
-                    $jumlahKelas = "SELECT count(nama_kelas_transaksi) AS jumlah_kelas FROM kelas_transaksi";
+                    $jumlahKelas = "SELECT count(kd_kelas_daftar_kelas_transaksi) AS jumlah_kelas FROM kelas_transaksi";
                     $query = mysqli_query($connect, $jumlahKelas);
                     $result = mysqli_fetch_array($query);
                     ?>

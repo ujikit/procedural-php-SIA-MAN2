@@ -6,7 +6,7 @@ $nisn_siswa = $_POST['nisn_siswa'];
 $nis_siswa = $_POST['nis_siswa'];
 $nama_siswa = addslashes($_POST['nama_siswa']);
 $jenis_kelamin_siswa = $_POST['jenis_kelamin_siswa'];
-$id_kelas_daftar = $_POST['id_kelas_daftar'];
+$kd_kelas_daftar_siswa = $_POST['kd_kelas_daftar_siswa'];
 $alamat_siswa = addslashes($_POST['alamat_siswa']);
 $tempat_lahir_siswa = addslashes($_POST['tempat_lahir_siswa']);
 $tanggal_lahir_siswa = $_POST['tanggal_lahir_siswa'];
@@ -46,7 +46,7 @@ $query_update = "UPDATE data_siswa set nisn_siswa='$nisn_siswa',nis_siswa='$nis_
   $tmp_file = $_FILES['foto_siswa']['tmp_name'];
 
   // Set path folder tempat menyimpan gambarnya
-  $path = "../frontend/img/foto/siswa/"."$nisn_siswa";
+  $path = "../frontend/img/foto/siswa/"."$nis_siswa";
 
   if($tipe_file == "image/jpeg" || $tipe_file == "image/png"){ // Cek apakah tipe file yang diupload adalah JPG / JPEG / PNG
     // Jika tipe file yang diupload JPG / JPEG / PNG, lakukan :

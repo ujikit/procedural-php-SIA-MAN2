@@ -5,7 +5,7 @@ $nip_pegawai = $_POST['nip_pegawai'];
 $nip_pegawai = str_replace(' ','',$nip_pegawai);
 $nama_pegawai = addslashes($_POST['nama_pegawai']);
 $jabatan_pegawai = $_POST['jabatan_pegawai'];
-$nama_mata_pelajaran_pegawai = addslashes($_POST['nama_mata_pelajaran_pegawai']);
+$kd_mata_pelajaran_pegawai = addslashes($_POST['kd_mata_pelajaran_pegawai']);
 $username_pegawai = str_replace(' ','',$_POST['username_pegawai']);
 $password_pegawai = str_replace(' ','',$_POST['password_pegawai']);
 $password_pegawai = password_hash($password_pegawai, PASSWORD_DEFAULT); //susah didekripsi
@@ -14,7 +14,7 @@ $tempat_lahir_pegawai = addslashes($_POST['tempat_lahir_pegawai']);
 $tanggal_lahir_pegawai = $_POST['tanggal_lahir_pegawai'];
 $no_handphone_pegawai = $_POST['no_handphone_pegawai'];
 
-$query_tambah_pegawai = "INSERT INTO data_pegawai (nip_pegawai, nama_pegawai, jabatan_pegawai, nama_mata_pelajaran_pegawai, username_pegawai, password_pegawai, foto_pegawai, alamat_pegawai, tempat_lahir_pegawai, tanggal_lahir_pegawai, no_handphone_pegawai) VALUES ('$nip_pegawai', '$nama_pegawai', '$jabatan_pegawai', '$nama_mata_pelajaran_pegawai', '$username_pegawai', '$password_pegawai', '$nip_pegawai', '$alamat_pegawai', '$tempat_lahir_pegawai', '$tanggal_lahir_pegawai', '$no_handphone_pegawai') ";
+$query_tambah_pegawai = "INSERT INTO data_pegawai (nip_pegawai, nama_pegawai, jabatan_pegawai, kd_mata_pelajaran_pegawai, username_pegawai, password_pegawai, foto_pegawai, alamat_pegawai, tempat_lahir_pegawai, tanggal_lahir_pegawai, no_handphone_pegawai) VALUES ('$nip_pegawai', '$nama_pegawai', '$jabatan_pegawai', '$kd_mata_pelajaran_pegawai', '$username_pegawai', '$password_pegawai', '$nip_pegawai', '$alamat_pegawai', '$tempat_lahir_pegawai', '$tanggal_lahir_pegawai', '$no_handphone_pegawai') ";
 
   // Ambil Data yang Dikirim dari Form
   $nama_file = $_FILES['foto_pegawai']['name'];

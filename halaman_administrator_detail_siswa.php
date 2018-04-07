@@ -26,7 +26,7 @@ $tampil = mysqli_fetch_array($query, MYSQLI_ASSOC);
                       </div>
                       <div class="col-lg-4">
 
-                        <img  src="frontend/img/foto/siswa/<?php echo $tampil['nisn_siswa']; ?>" class="img-circle" style="margin-left:80px;width:130px;">
+                        <img  src="frontend/img/foto/siswa/<?php echo $tampil['nis_siswa']; ?>" class="img-circle" style="margin-left:80px;width:130px;">
                        </br>
 
                       </div>
@@ -73,7 +73,7 @@ $tampil = mysqli_fetch_array($query, MYSQLI_ASSOC);
                       <div class="row">
                       <div class="col-lg-4">
                               <label for="sel1">Kelas : </label>
-                              <input type="text" class="form-control" name="kelas_siswa" value="<?php echo $tampil["id_kelas_daftar"] ?>" readonly>
+                              <input type="text" class="form-control" name="kelas_siswa" value="<?php echo $tampil["kd_kelas_daftar_siswa"] ?>" readonly>
                           </br>
                       </div>
                       <div class="col-lg-4">

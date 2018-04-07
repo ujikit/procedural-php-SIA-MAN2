@@ -5,7 +5,7 @@ $id_pegawai = $_POST['id_pegawai'];
 $nip_pegawai = $_POST['nip_pegawai'];
 $nama_pegawai = addslashes($_POST['nama_pegawai']);
 $jabatan_pegawai = $_POST['jabatan_pegawai'];
-$nama_mata_pelajaran_pegawai = addslashes($_POST['nama_mata_pelajaran_pegawai']);
+$kd_mata_pelajaran_pegawai = addslashes($_POST['kd_mata_pelajaran_pegawai']);
 // $username_pegawai = $_POST['username_pegawai'];
 // $password_pegawai = password_hash($_POST['password_pegawai'], PASSWORD_DEFAULT);
 $alamat_pegawai = addslashes($_POST['alamat_pegawai']);
@@ -13,7 +13,7 @@ $tempat_lahir_pegawai = addslashes($_POST['tempat_lahir_pegawai']);
 $tanggal_lahir_pegawai = $_POST['tanggal_lahir_pegawai'];
 $no_handphone_pegawai = $_POST['no_handphone_pegawai'];
 
-$query_update = "UPDATE data_pegawai set foto_pegawai='$nip_pegawai',nip_pegawai='$nip_pegawai', nama_pegawai='$nama_pegawai', jabatan_pegawai='$jabatan_pegawai', nama_mata_pelajaran_pegawai='$nama_mata_pelajaran_pegawai', alamat_pegawai='$alamat_pegawai', tempat_lahir_pegawai='$tempat_lahir_pegawai', tanggal_lahir_pegawai='$tanggal_lahir_pegawai', no_handphone_pegawai='$no_handphone_pegawai' where id_pegawai='$id_pegawai'";
+$query_update = "UPDATE data_pegawai set foto_pegawai='$nip_pegawai',nip_pegawai='$nip_pegawai', nama_pegawai='$nama_pegawai', jabatan_pegawai='$jabatan_pegawai', kd_mata_pelajaran_pegawai='$kd_mata_pelajaran_pegawai', alamat_pegawai='$alamat_pegawai', tempat_lahir_pegawai='$tempat_lahir_pegawai', tanggal_lahir_pegawai='$tanggal_lahir_pegawai', no_handphone_pegawai='$no_handphone_pegawai' where id_pegawai='$id_pegawai'";
 
   // Ambil Data yang Dikirim dari Form
   $nama_file = $_FILES['foto_pegawai']['name'];
@@ -51,9 +51,30 @@ $query_update = "UPDATE data_pegawai set foto_pegawai='$nip_pegawai',nip_pegawai
 if (mysqli_query($connect, $query_update)){
 
 header('location:../halaman_administrator_daftar_pegawai.php');
+
+// echo $id_pegawai."</br>";
+// echo $nip_pegawai."</br>";
+// echo $nama_pegawai."</br>";
+// echo $jabatan_pegawai."</br>";
+// echo $kd_mata_pelajaran_pegawai."</br>";
+// echo $alamat_pegawai."</br>";
+// echo $tempat_lahir_pegawai."</br>";
+// echo $tanggal_lahir_pegawai."</br>";
+// echo $no_handphone_pegawai."</br>";
 }
 else {
 echo "error";
+
+echo $id_pegawai."</br>";
+echo $nip_pegawai."</br>";
+echo $nama_pegawai."</br>";
+echo $jabatan_pegawai."</br>";
+echo $kd_mata_pelajaran_pegawai."</br>";
+echo $alamat_pegawai."</br>";
+echo $tempat_lahir_pegawai."</br>";
+echo $tanggal_lahir_pegawai."</br>";
+echo $no_handphone_pegawai."</br>";
+
 }
 
 ?>
