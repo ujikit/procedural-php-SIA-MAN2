@@ -4,7 +4,6 @@ $title = "Dashboard Administrator";
 include_once "backend/koneksi.php";
 $kd_kelas_daftar = $_GET["kd_kelas_daftar_kelas_transaksi"];
 
-
 if($_SESSION['nip_administrator']){
 
 ?>
@@ -16,9 +15,46 @@ if($_SESSION['nip_administrator']){
 <body class="hold-transition skin-blue sidebar-mini">
 
   <script type="text/javascript" charset="utf-8">
-  		$(document).ready(function() {
-  			$('#tampilDataTables').DataTable();
-  		} );
+		$(document).ready(function() {
+			$('#tampilDataTables').DataTable();
+		});
+
+    function fetch_select(val){
+     $.ajax({
+       type: 'post',
+       url: 'backend/get_tambah_guru_pengampu_mapel_halaman_administrator_daftar_guru_pengampu_mata_pelajaran_perkelas.php',
+       data: {
+        get_option:val
+       },
+       success: function (response) {
+        document.getElementById("new_select").innerHTML=response;
+       }
+     });
+    }
+    function fetch_selectEdit(val){
+     $.ajax({
+       type: 'post',
+       url: 'backend/get_tambah_guru_pengampu_mapel_halaman_administrator_daftar_guru_pengampu_mata_pelajaran_perkelas.php',
+       data: {
+        get_option:val
+       },
+       success: function (response) {
+        document.getElementById("new_selectEdit").innerHTML=response;
+       }
+     });
+    }
+    function fetch_selectSegarkan(val){
+     $.ajax({
+       type: 'post',
+       url: 'backend/get_tambah_guru_pengampu_mapel_halaman_administrator_daftar_guru_pengampu_mata_pelajaran_perkelas.php',
+       data: {
+        get_option:val
+       },
+       success: function (response) {
+        document.getElementById("new_selectSegarkan").innerHTML=response;
+       }
+     });
+    }
   </script>
 
   <section class="content-header">
@@ -28,19 +64,6 @@ if($_SESSION['nip_administrator']){
       <li class="active">Lihat Guru Pengampu</li>
     </ol>
   </section>
-
-  <!-- <div class="row">
-    <div class="container">
-      <?php
-      $query_tampilSiswaBelumValid = "SELECT count(nis_siswa_nilai_siswa_transaksi) as jumlah_belumValid from nilai_siswa_transaksi where nama_kelas_nilai_siswa_transaksi='$kd_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi='' && nip_pegawai_nilai_siswa_transaksi is null";
-      $query = mysqli_query($connect, $query_tampilSiswaBelumValid);
-      $result = mysqli_fetch_array($query);
-      ?>
-      <div class="col-lg-12" style="margin-top:50px">
-        <span class="label label-primary" style="float:right;font-size:17px">Data Siswa Belum Valid : <?php echo "{$result['jumlah_belumValid']}"; ?> Anak</span>
-      </div>
-    </div>
-  </div> -->
 
   <div class="row">
     <div class="container">
@@ -72,39 +95,40 @@ if($_SESSION['nip_administrator']){
               $tampilDataPegawai = "SELECT * from mata_pelajaran_transaksi inner join data_pegawai on mata_pelajaran_transaksi.nip_pegawai_mata_pelajaran_transaksi = data_pegawai.nip_pegawai where kd_kelas_daftar_mata_pelajaran_transaksi='$kd_kelas_daftar' order by kd_kelas_daftar_mata_pelajaran_transaksi asc";
               $tampil = mysqli_query($connect, $tampilDataPegawai);
               while($row=mysqli_fetch_array($tampil)){
-                $id_mata_pelajaran_mata_pelajaran_transaksi = $row["id_mata_pelajaran_mata_pelajaran_transaksi"];
-                $nama_pegawai = $row["nama_pegawai"];
-
+                $kd_mata_pelajaran_transaksi              = $row["kd_mata_pelajaran_transaksi"];
+                $kd_kelas_daftar_mata_pelajaran_transaksi = $row["kd_kelas_daftar_mata_pelajaran_transaksi"];
+                $nip_pegawai                              = $row["nip_pegawai"];
                 ?>
             <tr>
               <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $no++ ?></td>
-              <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["nama_kelas_mata_pelajaran_transaksi"] ?></td>
-              <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["nama_mata_pelajaran_transaksi"] ?></td>
+              <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["kd_kelas_daftar_mata_pelajaran_transaksi"] ?></td>
+              <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["kd_mata_pelajaran_transaksi"] ?></td>
               <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["nama_pegawai"] ?></td>
               <?php
-              $query_tampilSiswaBelumValid = "SELECT * from nilai_siswa_transaksi_smt1_pengetahuan where nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran_mata_pelajaran_transaksi' && nip_pegawai_nilai_siswa_transaksi_smt1_pengetahuan=''";
+              $query_tampilSiswaBelumValid = "SELECT * from nilai_siswa_transaksi_smt1_pengetahuan where kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar_mata_pelajaran_transaksi' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran_transaksi' && nip_pegawai_nilai_siswa_transaksi_smt1_pengetahuan=''";
               $query = mysqli_query($connect, $query_tampilSiswaBelumValid);
               $mysqli_num_rows = mysqli_num_rows($query);
-              if ($mysqli_num_rows==1) {
+              if ($mysqli_num_rows == 1) {
               ?>
               <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><span class="label label-danger" style="font-size:15px;">Belum Valid</span></td>
               <?php
               }
-              elseif ($mysqli_num_rows==0) {
+              else if ($mysqli_num_rows == 0){
               ?>
               <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><span class="label label-success" style="font-size:15px;">Sudah Valid</span></td>
               <?php
               }
               else {
-                echo "string";
+              ?>
+              <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><span class="label label-warning" style="font-size:15px;">Belum Ada Siswa</span></td>
+              <?php
               }
               ?>
               <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center">
-                    <a type="button" class="btn btn-success" href="javascript:detailPengampuMataPelajaran('<?php echo $row['id_mata_pelajaran_transaksi'] ?>')" ><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
-                    <a type="button" class="btn btn-primary" href="javascript:editPengampuMataPelajaran('<?php echo $row['id_mata_pelajaran_transaksi'] ?>')" ><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                    <a type="button" class="btn btn-danger" href="javascript:deletePengampuMataPelajaran('<?php echo $row['id_mata_pelajaran_transaksi'] ?>','<?php echo $kd_kelas_daftar ?>','<?php echo $row['id_mata_pelajaran_mata_pelajaran_transaksi']?>','<?php echo $row['nip_pegawai']?>')" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                    <a type="button" class="btn btn-success" href="javascript:segarkanPengampuMataPelajaran('<?php echo $row['id_mata_pelajaran_transaksi'] ?>')"><span class="glyphicon glyphicon-ok"></span></a>
-                     <!-- <a type="button" id="segarkan" class="btn btn-success" href="backend/administrator_edit_pengampu_mata_pelajaran.php?id_mata_pelajaran_transaksi=<?php echo $row['id_mata_pelajaran_transaksi'] ?>"><span class="glyphicon glyphicon-ok"></span></a> -->
+                <a type="button" class="btn btn-primary" href="javascript:editPengampuMataPelajaran('<?php echo $row['id_mata_pelajaran_transaksi'] ?>')" ><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                <a type="button" class="btn btn-danger" href="javascript:deletePengampuMataPelajaran('<?php echo $row['id_mata_pelajaran_transaksi'] ?>','<?php echo $kd_kelas_daftar ?>','<?php echo $row['id_mata_pelajaran_mata_pelajaran_transaksi']?>','<?php echo $row['nip_pegawai']?>')" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                <a type="button" class="btn btn-success" href="javascript:segarkanPengampuMataPelajaran('<?php echo $row['id_mata_pelajaran_transaksi'] ?>')"><span class="glyphicon glyphicon-ok"></span></a>
+                 <!-- <a type="button" id="segarkan" class="btn btn-success" href="backend/administrator_edit_pengampu_mata_pelajaran.php?id_mata_pelajaran_transaksi=<?php echo $row['id_mata_pelajaran_transaksi'] ?>"><span class="glyphicon glyphicon-ok"></span></a> -->
              </td>
             </tr>
             <?php  } ?>
@@ -130,39 +154,32 @@ if($_SESSION['nip_administrator']){
                 <div class="row">
                   <div class="col-lg-12">
                     <label for="sel1">Nama Kelas : </label>
-                        <?php
-                          $tampilDataKelas = "SELECT * from kelas_daftar where kd_kelas_daftar='$kd_kelas_daftar'";
-                          $tampil = mysqli_query($connect, $tampilDataKelas);
-                          $row=mysqli_fetch_array($tampil);
-                        ?>
-                        <input type="text" class="form-control" name="kd_kelas_daftar" value="<?php echo $row["nama_kelas_daftar"] ?>" readonly>
-                      </br>
+                      <?php
+                        $tampilDataKelas = "SELECT * from kelas_daftar where kd_kelas_daftar='$kd_kelas_daftar'";
+                        $tampil = mysqli_query($connect, $tampilDataKelas);
+                        $row=mysqli_fetch_array($tampil);
+                      ?>
+                      <input type="hidden" class="form-control" name="kd_kelas_daftar" value="<?php echo $row["kd_kelas_daftar"] ?>" readonly>
+                      <input type="text" class="form-control" value="<?php echo $row["nama_kelas_daftar"] ?>" readonly>
+                    </br>
                   </div>
                   <div class="col-lg-12">
                     <label for="sel1">Nama Mata Pelajaran : </label>
-                    <select class="form-control" name="nama_mata_pelajaran_transaksi" Onchange="getMataPelajaranToGuru(this.value);getMataPelajaranToIDMataPelajaran(this.value);" required>
-                    <option value="">Pilih Mata Pelajaran </option>
-                    <?php
-                      $tampilDataMataPelajaran = "SELECT * from mata_pelajaran";
-                      $tampil = mysqli_query($connect, $tampilDataMataPelajaran);
-                      while($row=mysqli_fetch_array($tampil)){
-                    ?>
-                    <option value="<?php echo $row["nama_mata_pelajaran"] ?>"><?php echo $row["nama_mata_pelajaran"] ?></option>
-                    <?php  } ?>
+                    <select class="form-control" name="kd_mata_pelajaran" onchange="fetch_select(this.value);">
+                      <option>Pilih Nama Mata Pelajaran</option>
+                      <?php
+                      $select=mysqli_query($connect, "SELECT * from mata_pelajaran group by nama_mata_pelajaran");
+                      while($row=mysqli_fetch_array($select)){
+                       echo "<option value=".$row['kd_mata_pelajaran'].">".$row['nama_mata_pelajaran']."</option>";
+                      }
+                      ?>
                     </select>
                     </br>
                   </div>
                   <div class="col-lg-12" style="margin-top:0px">
                     <label for="sel1">Nama Guru Pengampu : </label>
-                    <select class="form-control" name="nama_guru_mata_pelajaran_transaksi" required>
-                      <option value="">Nama Guru Pengampu </option>
-                      <?php
-                        $tampilDataMataPelajaran = "SELECT * from data_pegawai where nama_pegawai!='Administrator'";
-                        $tampil = mysqli_query($connect, $tampilDataMataPelajaran);
-                        while($row=mysqli_fetch_array($tampil)){
-                      ?>
-                      <option value="<?php echo $row["nip_pegawai"] ?>"><?php echo $row["nama_pegawai"] ?></option>
-                      <?php  } ?>
+                    <select id="new_select" class="form-control" name="nip_pegawai" required>
+                      <option value="">Belum Ada Guru Pengampu</option>
                     </select>
                     </br>
                   </div>
@@ -170,9 +187,6 @@ if($_SESSION['nip_administrator']){
                     <label for="sel1">KKM Mata Pelajaran : </label>
                     <input type="text" class="form-control" name="kkm_rendah_mata_pelajaran_transaksi" required>
                     <!--<label for="sel1">ID Mata Pelajaran : </label>-->
-                    <select type="hidden" class="form-control" id="mataGuruByIDMataPelajaran" name="id_mata_pelajaran_mata_pelajaran_transaksi" style="visibility: hidden;" required>
-                      <option value="">ID Mata Pelajaran </option>
-                    </select>
                   </div>
                 </div>
               </div>

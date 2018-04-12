@@ -85,11 +85,6 @@ $('.datepicker').datepicker({
 		}
 
 		//setelah masuk fungsi detailSemuaPengampuMataPelajaran
-    function detailPengampuMataPelajaran(x){
-      var id_mata_pelajaran_transaksi=x;
-      $("#detailPengampuMataPelajaran").modal("show");
-      $("#tampil").load("halaman_administrator_detail_pengampu_mata_pelajaran.php?id_mata_pelajaran_transaksi="+id_mata_pelajaran_transaksi);
-    }
     function editPengampuMataPelajaran(x){
       var id_mata_pelajaran_transaksi=x;
       $("#editPengampuMataPelajaran").modal("show");
