@@ -108,7 +108,7 @@ if($_SESSION['nip_administrator']){
               $query_tampilSiswaBelumValid = "SELECT * from nilai_siswa_transaksi_smt1_pengetahuan where kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar_mata_pelajaran_transaksi' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran_transaksi' && nip_pegawai_nilai_siswa_transaksi_smt1_pengetahuan=''";
               $query = mysqli_query($connect, $query_tampilSiswaBelumValid);
               $mysqli_num_rows = mysqli_num_rows($query);
-              if ($mysqli_num_rows == 1) {
+              if ($mysqli_num_rows == 1){
               ?>
               <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><span class="label label-danger" style="font-size:15px;">Belum Valid</span></td>
               <?php

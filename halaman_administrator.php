@@ -78,7 +78,7 @@ if($_SESSION['nip_administrator']){
                     </div>
                     <div class="col-xs-6 text-right">
                       <?php
-                      $jumlahKelas = "SELECT count(nama_pegawai) AS jumlah_pegawai FROM data_pegawai where not jabatan_pegawai='administrator'";
+                      $jumlahKelas = "SELECT count(nama_pegawai) AS jumlah_pegawai FROM data_pegawai where not nip_pegawai='1111'";
                       $query = mysqli_query($connect, $jumlahKelas);
                       $result = mysqli_fetch_array($query);
                        ?>

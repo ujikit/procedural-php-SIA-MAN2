@@ -50,7 +50,6 @@ if(isset($_SESSION['nip_administrator'])){
         <li class=""><a href="halaman_administrator_daftar_pegawai.php"><i class="glyphicon glyphicon-th-list"></i> <span>Panel Pegawai</span></a></li>
         <li class=""><a href="halaman_administrator_daftar_siswa.php"><i class="glyphicon glyphicon-th-list"></i> <span>Panel Siswa</span></a></li>
         <li class=""><a href="halaman_administrator_daftar_kelas_dan_wali_kelas.php"><i class="glyphicon glyphicon-th-list"></i> <span>Panel Kelas & Wali Kelas</span></a></li>
-        <li class=""><a href="halaman_administrator_daftar_nama_mata_pelajaran.php"><i class="glyphicon glyphicon-th-list"></i> <span>Penel Nama Mata Pelajaran</span></a></li>
         <!--<li class=""><a href="halaman_administrator_daftar_pengampu_mata_pelajaran.php"><i class="glyphicon glyphicon-th-list"></i> <span>Panel MaPel & Pengampu</span></a></li>-->
         <li class="header">Navigasi Tambahan</li>
         <li><a href="halaman_administrator_verifikasi_password_baru.php"><i class="fa fa-key"></i> <span>Verifikasi Password Baru</span></a></li>

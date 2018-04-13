@@ -2,7 +2,8 @@
 session_start();
 include_once "backend/koneksi.php";
 if($_SESSION['nip_pegawai']){
-$id_kelas_daftar = $_GET['id_kelas_daftar'];
+// $kd_kelas_daftar = $_GET['kd_kelas_daftar_mata_pelajaran_transaksi'];
+$kd_kelas_daftar = "10ipa1";
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +50,12 @@ $id_kelas_daftar = $_GET['id_kelas_daftar'];
     loadData();
 
     $('#Segarkan').click(function(){
-    $('#loadDataKD').load('halaman_guru_input_kd_mapel.php');
+    // $('#loadDataKD').load('halaman_guru_input_kd_mapel.php');
+    swal(
+      'Maintenance',
+      'Sedang Dalam Pegembangan :)',
+      'warning'
+    )
     });
 
     $('form').on('submit',function(e){
@@ -76,8 +82,8 @@ $id_kelas_daftar = $_GET['id_kelas_daftar'];
 
   function loadData(){
     // pass variable php to javascript
-    var id_kelas_daftar = "<?php echo $id_kelas_daftar ?>";
-    $.get("halaman_guru_input_kd_mapel_load_data.php?id_kelas_daftar="+id_kelas_daftar).done(function(data){
+    var kd_kelas_daftar = "<?php echo $kd_kelas_daftar ?>";
+    $.get("halaman_guru_input_kd_mapel_load_data.php?kd_kelas_daftar="+kd_kelas_daftar).done(function(data){
       $('#loadDataKD').html(data);
     })
   }

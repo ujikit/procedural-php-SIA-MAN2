@@ -155,10 +155,10 @@ $('.datepicker').datepicker({
 <script type="text/javascript">
 
 function detailKDPerKelas(x,y,z){
-	var id_kelas_daftar=x;
-	var id_mata_pelajaran_mata_pelajaran_transaksi=y;
+	var kd_kelas_daftar_mata_pelajaran_transaksi=x;
+	var kd_mata_pelajaran_transaksi=y;
 	var nip_pegawai_mata_pelajaran_transaksi=z;
-	$("#tampilPengampuMataPelajaran").load("halaman_guru_input_kd_mapel_load.php?id_kelas_daftar="+id_kelas_daftar+"&id_mata_pelajaran_mata_pelajaran_transaksi="+id_mata_pelajaran_mata_pelajaran_transaksi+"&nip_pegawai_mata_pelajaran_transaksi="+nip_pegawai_mata_pelajaran_transaksi);
+	$("#tampilPengampuMataPelajaran").load("halaman_guru_input_kd_mapel_load.php?kd_kelas_daftar_mata_pelajaran_transaksi="+kd_kelas_daftar_mata_pelajaran_transaksi+"&kd_mata_pelajaran_transaksi="+kd_mata_pelajaran_transaksi+"&nip_pegawai_mata_pelajaran_transaksi="+nip_pegawai_mata_pelajaran_transaksi);
 }
 function detailSemuaNilaiSiswa(x,y,z){
 	var id_kelas_daftar=x;

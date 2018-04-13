@@ -68,18 +68,18 @@ $nama_pegawai = $row_tampilNamaPegawai['nama_pegawai'];
                     $rowPegawai = mysqli_fetch_array($query_dataPegawai);
                     $nip_pegawai = $rowPegawai['nip_pegawai'];
 
-                    $tampilDataPegawai = "SELECT * from mata_pelajaran_transaksi inner join kelas_transaksi on mata_pelajaran_transaksi.id_kelas_daftar = kelas_transaksi.id_kelas_daftar where nip_pegawai_mata_pelajaran_transaksi='$nip_pegawai' order by nama_kelas_mata_pelajaran_transaksi asc";
+                    $tampilDataPegawai = "SELECT * from mata_pelajaran_transaksi inner join kelas_transaksi on mata_pelajaran_transaksi.kd_kelas_daftar_mata_pelajaran_transaksi = kelas_transaksi.kd_kelas_daftar_kelas_transaksi where nip_pegawai_mata_pelajaran_transaksi='$nip_pegawai' order by kd_kelas_daftar_mata_pelajaran_transaksi asc";
                     //$tampilDataPegawai = "SELECT * from mata_pelajaran_transaksi where nama_guru_mata_pelajaran_transaksi = '$nama_pegawai'";
                     $tampil = mysqli_query($connect, $tampilDataPegawai);
                     while($row=mysqli_fetch_array($tampil)){
                   ?>
                   <tr>
                     <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $no++ ?></td>
-                    <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["nama_kelas_mata_pelajaran_transaksi"] ?></td>
-                    <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["wali_kelas_transaksi"] ?></td>
-                    <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["nama_mata_pelajaran_transaksi"] ?></td>
+                    <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["kd_kelas_daftar_mata_pelajaran_transaksi"] ?></td>
+                    <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["nip_pegawai_mata_pelajaran_transaksi"] ?></td>
+                    <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["kd_mata_pelajaran_transaksi"] ?></td>
                     <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center">
-                          <a type="button" class="btn btn-success" href="javascript:detailKDPerKelas('<?php echo $row['id_kelas_daftar'] ?>','<?php echo $row['id_mata_pelajaran_mata_pelajaran_transaksi'] ?>','<?php echo $row['nip_pegawai_mata_pelajaran_transaksi'] ?>')" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Input Nilai Siswa</a>
+                          <a type="button" class="btn btn-success" href="javascript:detailKDPerKelas('<?php echo $row['kd_kelas_daftar_mata_pelajaran_transaksi'] ?>','<?php echo $row['kd_mata_pelajaran_transaksi'] ?>','<?php echo $row['nip_pegawai_mata_pelajaran_transaksi'] ?>')" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Input Nilai Siswa</a>
                     </td>
                   </tr>
                   <?php  } ?>
