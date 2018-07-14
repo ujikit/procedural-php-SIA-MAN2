@@ -3,7 +3,7 @@
 $host  = 'localhost';
 $user  = 'root';
 $pass = '';
-$db    = 'man2';
+$db    = 'man2_chatbot';
 
 $connect = new mysqli($host, $user, $pass, $db);
 if($connect->connect_error){

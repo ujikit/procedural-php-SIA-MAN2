@@ -44,12 +44,12 @@ if(isset($_SESSION['nip_administrator'])){
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">Navigasi Utama</li>
-
         <li class=""><a href="halaman_administrator.php"><i class="glyphicon glyphicon-home"></i> <span>Home</span></a></li>
         <li class=""><a href="halaman_administrator_konfigurasi_tampilan_index.php"><i class="glyphicon glyphicon-dashboard"></i> <span>Konfigurasi Tampilan Web</span></a></li>
         <li class=""><a href="halaman_administrator_daftar_pegawai.php"><i class="glyphicon glyphicon-th-list"></i> <span>Panel Pegawai</span></a></li>
         <li class=""><a href="halaman_administrator_daftar_siswa.php"><i class="glyphicon glyphicon-th-list"></i> <span>Panel Siswa</span></a></li>
         <li class=""><a href="halaman_administrator_daftar_kelas_dan_wali_kelas.php"><i class="glyphicon glyphicon-th-list"></i> <span>Panel Kelas & Wali Kelas</span></a></li>
+        <li class=""><a href="halaman_administrator_daftar_pembayaran.php"><i class="glyphicon glyphicon-usd"></i> <span>Tagihan Pembayaran</span></a></li>
         <!--<li class=""><a href="halaman_administrator_daftar_pengampu_mata_pelajaran.php"><i class="glyphicon glyphicon-th-list"></i> <span>Panel MaPel & Pengampu</span></a></li>-->
         <li class="header">Navigasi Tambahan</li>
         <li><a href="halaman_administrator_verifikasi_password_baru.php"><i class="fa fa-key"></i> <span>Verifikasi Password Baru</span></a></li>

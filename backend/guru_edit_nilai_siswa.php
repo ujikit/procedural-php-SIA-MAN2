@@ -2,8 +2,8 @@
 include_once "koneksi.php";
 error_reporting(0);
 $nip_pegawai       = $_GET['nip_pegawai'];
-$id_kelas_daftar   = $_GET['id_kelas_daftar'];
-$id_mata_pelajaran = $_GET['id_mata_pelajaran'];
+$kd_kelas_daftar   = $_GET['kd_kelas_daftar'];
+$kd_mata_pelajaran = $_GET['kd_mata_pelajaran'];
 
 //SMT1
 //pengetahuan1
@@ -714,18 +714,17 @@ $nilai_akhir_siswa_transaksi_smt2_pengetahuan = $_POST['nilai_akhir_siswa_transa
 $nilai_akhir_siswa_transaksi_smt2_pengetahuan = json_encode($nilai_akhir_siswa_transaksi_smt2_pengetahuan, JSON_PRETTY_PRINT);
 $json_nilai_akhir_siswa_transaksi_smt2_pengetahuan = json_decode($nilai_akhir_siswa_transaksi_smt2_pengetahuan, true);
 
-$query_hitung_siswa_per_kelas = mysqli_query($connect, "SELECT count(nis_siswa) AS jumlah_siswa from data_siswa where id_kelas_daftar='$id_kelas_daftar'");
+$query_hitung_siswa_per_kelas = mysqli_query($connect, "SELECT count(nis_siswa) AS jumlah_siswa from data_siswa where kd_kelas_daftar_siswa='$kd_kelas_daftar'");
 $rows = mysqli_fetch_array($query_hitung_siswa_per_kelas);
 $jumlah_siswa = $rows['jumlah_siswa'];
 
 $nis_siswa = Array();
-$tampil_nisSiswa = mysqli_query($connect, "SELECT nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan from nilai_siswa_transaksi_smt1_pengetahuan where nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' and id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran' order by nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan asc");
+$tampil_nisSiswa = mysqli_query($connect, "SELECT nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan from nilai_siswa_transaksi_smt1_pengetahuan where kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' and kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran' order by nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan asc");
 while($tampil = mysqli_fetch_array($tampil_nisSiswa)){
   $nis_siswa[] = $tampil['nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan'];
 }
 $nis_siswa = json_encode($nis_siswa, JSON_PRETTY_PRINT);
 $json_nis_siswa = json_decode($nis_siswa, JSON_PRETTY_PRINT);
-
 
 //SMT1
 //PENGETAHUAN
@@ -743,11 +742,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $rerata_akhir_nilai_siswa_transaksi1_smt1_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi1_smt1_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
 
-  $update_nilaiSiswa  = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi1_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi1_smt1_pengetahuan', observasi_nilai_siswa_transaksi1_smt1_pengetahuan='$observasi_nilai_siswa_transaksi1_smt1_pengetahuan', penugasan_nilai_siswa_transaksi1_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi1_smt1_pengetahuan', rerata_nilai_siswa_transaksi1_smt1_pengetahuan='$rerata_nilai_siswa_transaksi1_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi1_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi1_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi1_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi1_smt1_pengetahuan', uas_nilai_siswa_transaksi1_smt1_pengetahuan='$uas_nilai_siswa_transaksi1_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi1_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi1_smt1_pengetahuan', na_uas_nilai_siswa_transaksi1_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi1_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi1_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi1_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa  = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi1_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi1_smt1_pengetahuan', observasi_nilai_siswa_transaksi1_smt1_pengetahuan='$observasi_nilai_siswa_transaksi1_smt1_pengetahuan', penugasan_nilai_siswa_transaksi1_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi1_smt1_pengetahuan', rerata_nilai_siswa_transaksi1_smt1_pengetahuan='$rerata_nilai_siswa_transaksi1_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi1_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi1_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi1_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi1_smt1_pengetahuan', uas_nilai_siswa_transaksi1_smt1_pengetahuan='$uas_nilai_siswa_transaksi1_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi1_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi1_smt1_pengetahuan', na_uas_nilai_siswa_transaksi1_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi1_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi1_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi1_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -764,11 +763,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi2_smt1_pengetahuan       = $json_na_uas_nilai_siswa_transaksi2_smt1_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi2_smt1_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi2_smt1_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi2_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi2_smt1_pengetahuan', observasi_nilai_siswa_transaksi2_smt1_pengetahuan='$observasi_nilai_siswa_transaksi2_smt1_pengetahuan', penugasan_nilai_siswa_transaksi2_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi2_smt1_pengetahuan', rerata_nilai_siswa_transaksi2_smt1_pengetahuan='$rerata_nilai_siswa_transaksi2_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi2_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi2_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi2_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi2_smt1_pengetahuan', uas_nilai_siswa_transaksi2_smt1_pengetahuan='$uas_nilai_siswa_transaksi2_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi2_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi2_smt1_pengetahuan', na_uas_nilai_siswa_transaksi2_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi2_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi2_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi2_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi2_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi2_smt1_pengetahuan', observasi_nilai_siswa_transaksi2_smt1_pengetahuan='$observasi_nilai_siswa_transaksi2_smt1_pengetahuan', penugasan_nilai_siswa_transaksi2_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi2_smt1_pengetahuan', rerata_nilai_siswa_transaksi2_smt1_pengetahuan='$rerata_nilai_siswa_transaksi2_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi2_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi2_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi2_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi2_smt1_pengetahuan', uas_nilai_siswa_transaksi2_smt1_pengetahuan='$uas_nilai_siswa_transaksi2_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi2_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi2_smt1_pengetahuan', na_uas_nilai_siswa_transaksi2_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi2_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi2_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi2_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -785,11 +784,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi3_smt1_pengetahuan       = $json_na_uas_nilai_siswa_transaksi3_smt1_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi3_smt1_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi3_smt1_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi3_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi3_smt1_pengetahuan', observasi_nilai_siswa_transaksi3_smt1_pengetahuan='$observasi_nilai_siswa_transaksi3_smt1_pengetahuan', penugasan_nilai_siswa_transaksi3_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi3_smt1_pengetahuan', rerata_nilai_siswa_transaksi3_smt1_pengetahuan='$rerata_nilai_siswa_transaksi3_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi3_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi3_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi3_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi3_smt1_pengetahuan', uas_nilai_siswa_transaksi3_smt1_pengetahuan='$uas_nilai_siswa_transaksi3_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi3_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi3_smt1_pengetahuan', na_uas_nilai_siswa_transaksi3_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi3_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi3_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi3_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi3_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi3_smt1_pengetahuan', observasi_nilai_siswa_transaksi3_smt1_pengetahuan='$observasi_nilai_siswa_transaksi3_smt1_pengetahuan', penugasan_nilai_siswa_transaksi3_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi3_smt1_pengetahuan', rerata_nilai_siswa_transaksi3_smt1_pengetahuan='$rerata_nilai_siswa_transaksi3_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi3_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi3_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi3_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi3_smt1_pengetahuan', uas_nilai_siswa_transaksi3_smt1_pengetahuan='$uas_nilai_siswa_transaksi3_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi3_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi3_smt1_pengetahuan', na_uas_nilai_siswa_transaksi3_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi3_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi3_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi3_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -806,11 +805,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi4_smt1_pengetahuan       = $json_na_uas_nilai_siswa_transaksi4_smt1_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi4_smt1_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi4_smt1_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi4_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi4_smt1_pengetahuan', observasi_nilai_siswa_transaksi4_smt1_pengetahuan='$observasi_nilai_siswa_transaksi4_smt1_pengetahuan', penugasan_nilai_siswa_transaksi4_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi4_smt1_pengetahuan', rerata_nilai_siswa_transaksi4_smt1_pengetahuan='$rerata_nilai_siswa_transaksi4_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi4_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi4_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi4_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi4_smt1_pengetahuan', uas_nilai_siswa_transaksi4_smt1_pengetahuan='$uas_nilai_siswa_transaksi4_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi4_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi4_smt1_pengetahuan', na_uas_nilai_siswa_transaksi4_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi4_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi4_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi4_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi4_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi4_smt1_pengetahuan', observasi_nilai_siswa_transaksi4_smt1_pengetahuan='$observasi_nilai_siswa_transaksi4_smt1_pengetahuan', penugasan_nilai_siswa_transaksi4_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi4_smt1_pengetahuan', rerata_nilai_siswa_transaksi4_smt1_pengetahuan='$rerata_nilai_siswa_transaksi4_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi4_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi4_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi4_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi4_smt1_pengetahuan', uas_nilai_siswa_transaksi4_smt1_pengetahuan='$uas_nilai_siswa_transaksi4_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi4_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi4_smt1_pengetahuan', na_uas_nilai_siswa_transaksi4_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi4_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi4_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi4_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -827,11 +826,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi5_smt1_pengetahuan       = $json_na_uas_nilai_siswa_transaksi5_smt1_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi5_smt1_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi5_smt1_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi5_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi5_smt1_pengetahuan', observasi_nilai_siswa_transaksi5_smt1_pengetahuan='$observasi_nilai_siswa_transaksi5_smt1_pengetahuan', penugasan_nilai_siswa_transaksi5_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi5_smt1_pengetahuan', rerata_nilai_siswa_transaksi5_smt1_pengetahuan='$rerata_nilai_siswa_transaksi5_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi5_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi5_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi5_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi5_smt1_pengetahuan', uas_nilai_siswa_transaksi5_smt1_pengetahuan='$uas_nilai_siswa_transaksi5_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi5_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi5_smt1_pengetahuan', na_uas_nilai_siswa_transaksi5_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi5_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi5_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi5_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi5_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi5_smt1_pengetahuan', observasi_nilai_siswa_transaksi5_smt1_pengetahuan='$observasi_nilai_siswa_transaksi5_smt1_pengetahuan', penugasan_nilai_siswa_transaksi5_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi5_smt1_pengetahuan', rerata_nilai_siswa_transaksi5_smt1_pengetahuan='$rerata_nilai_siswa_transaksi5_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi5_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi5_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi5_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi5_smt1_pengetahuan', uas_nilai_siswa_transaksi5_smt1_pengetahuan='$uas_nilai_siswa_transaksi5_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi5_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi5_smt1_pengetahuan', na_uas_nilai_siswa_transaksi5_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi5_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi5_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi5_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -848,11 +847,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi6_smt1_pengetahuan       = $json_na_uas_nilai_siswa_transaksi6_smt1_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi6_smt1_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi6_smt1_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi6_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi6_smt1_pengetahuan', observasi_nilai_siswa_transaksi6_smt1_pengetahuan='$observasi_nilai_siswa_transaksi6_smt1_pengetahuan', penugasan_nilai_siswa_transaksi6_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi6_smt1_pengetahuan', rerata_nilai_siswa_transaksi6_smt1_pengetahuan='$rerata_nilai_siswa_transaksi6_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi6_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi6_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi6_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi6_smt1_pengetahuan', uas_nilai_siswa_transaksi6_smt1_pengetahuan='$uas_nilai_siswa_transaksi6_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi6_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi6_smt1_pengetahuan', na_uas_nilai_siswa_transaksi6_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi6_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi6_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi6_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi6_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi6_smt1_pengetahuan', observasi_nilai_siswa_transaksi6_smt1_pengetahuan='$observasi_nilai_siswa_transaksi6_smt1_pengetahuan', penugasan_nilai_siswa_transaksi6_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi6_smt1_pengetahuan', rerata_nilai_siswa_transaksi6_smt1_pengetahuan='$rerata_nilai_siswa_transaksi6_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi6_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi6_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi6_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi6_smt1_pengetahuan', uas_nilai_siswa_transaksi6_smt1_pengetahuan='$uas_nilai_siswa_transaksi6_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi6_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi6_smt1_pengetahuan', na_uas_nilai_siswa_transaksi6_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi6_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi6_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi6_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -869,11 +868,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi7_smt1_pengetahuan       = $json_na_uas_nilai_siswa_transaksi7_smt1_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi7_smt1_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi7_smt1_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set  tes_tulis_nilai_siswa_transaksi7_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi7_smt1_pengetahuan', observasi_nilai_siswa_transaksi7_smt1_pengetahuan='$observasi_nilai_siswa_transaksi7_smt1_pengetahuan', penugasan_nilai_siswa_transaksi7_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi7_smt1_pengetahuan', rerata_nilai_siswa_transaksi7_smt1_pengetahuan='$rerata_nilai_siswa_transaksi7_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi7_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi7_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi7_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi7_smt1_pengetahuan', uas_nilai_siswa_transaksi7_smt1_pengetahuan='$uas_nilai_siswa_transaksi7_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi7_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi7_smt1_pengetahuan', na_uas_nilai_siswa_transaksi7_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi7_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi7_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi7_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set  tes_tulis_nilai_siswa_transaksi7_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi7_smt1_pengetahuan', observasi_nilai_siswa_transaksi7_smt1_pengetahuan='$observasi_nilai_siswa_transaksi7_smt1_pengetahuan', penugasan_nilai_siswa_transaksi7_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi7_smt1_pengetahuan', rerata_nilai_siswa_transaksi7_smt1_pengetahuan='$rerata_nilai_siswa_transaksi7_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi7_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi7_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi7_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi7_smt1_pengetahuan', uas_nilai_siswa_transaksi7_smt1_pengetahuan='$uas_nilai_siswa_transaksi7_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi7_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi7_smt1_pengetahuan', na_uas_nilai_siswa_transaksi7_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi7_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi7_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi7_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -890,11 +889,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi8_smt1_pengetahuan       = $json_na_uas_nilai_siswa_transaksi8_smt1_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi8_smt1_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi8_smt1_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi8_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi8_smt1_pengetahuan', observasi_nilai_siswa_transaksi8_smt1_pengetahuan='$observasi_nilai_siswa_transaksi8_smt1_pengetahuan', penugasan_nilai_siswa_transaksi8_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi8_smt1_pengetahuan', rerata_nilai_siswa_transaksi8_smt1_pengetahuan='$rerata_nilai_siswa_transaksi8_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi8_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi8_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi8_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi8_smt1_pengetahuan', uas_nilai_siswa_transaksi8_smt1_pengetahuan='$uas_nilai_siswa_transaksi8_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi8_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi8_smt1_pengetahuan', na_uas_nilai_siswa_transaksi8_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi8_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi8_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi8_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi8_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi8_smt1_pengetahuan', observasi_nilai_siswa_transaksi8_smt1_pengetahuan='$observasi_nilai_siswa_transaksi8_smt1_pengetahuan', penugasan_nilai_siswa_transaksi8_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi8_smt1_pengetahuan', rerata_nilai_siswa_transaksi8_smt1_pengetahuan='$rerata_nilai_siswa_transaksi8_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi8_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi8_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi8_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi8_smt1_pengetahuan', uas_nilai_siswa_transaksi8_smt1_pengetahuan='$uas_nilai_siswa_transaksi8_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi8_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi8_smt1_pengetahuan', na_uas_nilai_siswa_transaksi8_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi8_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi8_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi8_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -911,11 +910,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi9_smt1_pengetahuan       = $json_na_uas_nilai_siswa_transaksi9_smt1_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi9_smt1_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi9_smt1_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi9_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi9_smt1_pengetahuan', observasi_nilai_siswa_transaksi9_smt1_pengetahuan='$observasi_nilai_siswa_transaksi9_smt1_pengetahuan', penugasan_nilai_siswa_transaksi9_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi9_smt1_pengetahuan', rerata_nilai_siswa_transaksi9_smt1_pengetahuan='$rerata_nilai_siswa_transaksi9_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi9_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi9_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi9_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi9_smt1_pengetahuan', uas_nilai_siswa_transaksi9_smt1_pengetahuan='$uas_nilai_siswa_transaksi9_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi9_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi9_smt1_pengetahuan', na_uas_nilai_siswa_transaksi9_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi9_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi9_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi9_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi9_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi9_smt1_pengetahuan', observasi_nilai_siswa_transaksi9_smt1_pengetahuan='$observasi_nilai_siswa_transaksi9_smt1_pengetahuan', penugasan_nilai_siswa_transaksi9_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi9_smt1_pengetahuan', rerata_nilai_siswa_transaksi9_smt1_pengetahuan='$rerata_nilai_siswa_transaksi9_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi9_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi9_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi9_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi9_smt1_pengetahuan', uas_nilai_siswa_transaksi9_smt1_pengetahuan='$uas_nilai_siswa_transaksi9_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi9_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi9_smt1_pengetahuan', na_uas_nilai_siswa_transaksi9_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi9_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi9_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi9_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -932,11 +931,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi10_smt1_pengetahuan       = $json_na_uas_nilai_siswa_transaksi10_smt1_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi10_smt1_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi10_smt1_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi10_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi10_smt1_pengetahuan', observasi_nilai_siswa_transaksi10_smt1_pengetahuan='$observasi_nilai_siswa_transaksi10_smt1_pengetahuan', penugasan_nilai_siswa_transaksi10_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi10_smt1_pengetahuan', rerata_nilai_siswa_transaksi10_smt1_pengetahuan='$rerata_nilai_siswa_transaksi10_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi10_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi10_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi10_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi10_smt1_pengetahuan', uas_nilai_siswa_transaksi10_smt1_pengetahuan='$uas_nilai_siswa_transaksi10_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi10_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi10_smt1_pengetahuan', na_uas_nilai_siswa_transaksi10_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi10_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi10_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi10_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set tes_tulis_nilai_siswa_transaksi10_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi10_smt1_pengetahuan', observasi_nilai_siswa_transaksi10_smt1_pengetahuan='$observasi_nilai_siswa_transaksi10_smt1_pengetahuan', penugasan_nilai_siswa_transaksi10_smt1_pengetahuan='$penugasan_nilai_siswa_transaksi10_smt1_pengetahuan', rerata_nilai_siswa_transaksi10_smt1_pengetahuan='$rerata_nilai_siswa_transaksi10_smt1_pengetahuan', nh_remidi_nilai_siswa_transaksi10_smt1_pengetahuan='$nh_remidi_nilai_siswa_transaksi10_smt1_pengetahuan', nah_kd_nilai_siswa_transaksi10_smt1_pengetahuan='$nah_kd_nilai_siswa_transaksi10_smt1_pengetahuan', uas_nilai_siswa_transaksi10_smt1_pengetahuan='$uas_nilai_siswa_transaksi10_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi10_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi10_smt1_pengetahuan', na_uas_nilai_siswa_transaksi10_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi10_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi10_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi10_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -950,22 +949,22 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi11_smt1_pengetahuan       = $json_na_uas_nilai_siswa_transaksi11_smt1_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi11_smt1_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi11_smt1_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set uts_nilai_siswa_transaksi11_smt1_pengetahuan='$uts_nilai_siswa_transaksi11_smt1_pengetahuan', uts_remidi_nilai_siswa_transaksi11_smt1_pengetahuan='$uts_remidi_nilai_siswa_transaksi11_smt1_pengetahuan', na_uts_nilai_siswa_transaksi11_smt1_pengetahuan='$na_uts_nilai_siswa_transaksi11_smt1_pengetahuan', uas_nilai_siswa_transaksi11_smt1_pengetahuan='$uas_nilai_siswa_transaksi11_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi11_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi11_smt1_pengetahuan', na_uas_nilai_siswa_transaksi11_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi11_smt1_pengetahuan', rerata_akhir_nilai_siswa_transaksi11_smt1_pengetahuan='$rerata_akhir_nilai_siswa_transaksi11_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set uts_nilai_siswa_transaksi11_smt1_pengetahuan='$uts_nilai_siswa_transaksi11_smt1_pengetahuan', uts_remidi_nilai_siswa_transaksi11_smt1_pengetahuan='$uts_remidi_nilai_siswa_transaksi11_smt1_pengetahuan', na_uts_nilai_siswa_transaksi11_smt1_pengetahuan='$na_uts_nilai_siswa_transaksi11_smt1_pengetahuan', uas_nilai_siswa_transaksi11_smt1_pengetahuan='$uas_nilai_siswa_transaksi11_smt1_pengetahuan', uas_remidi_nilai_siswa_transaksi11_smt1_pengetahuan='$uas_remidi_nilai_siswa_transaksi11_smt1_pengetahuan', na_uas_nilai_siswa_transaksi11_smt1_pengetahuan='$na_uas_nilai_siswa_transaksi11_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
 for ($i=0; $i <$jumlah_siswa; $i++) {
   $tes_tulis_nilai_siswa_transaksi1_smt1_pengetahuan    = $json_nilai_akhir_siswa_transaksi_smt1_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set nilai_akhir_nilai_siswa_transaksi_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi1_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt1_pengetahuan set nilai_akhir_nilai_siswa_transaksi_smt1_pengetahuan='$tes_tulis_nilai_siswa_transaksi1_smt1_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -985,11 +984,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi1_smt2_pengetahuan       = $json_na_uas_nilai_siswa_transaksi1_smt2_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi1_smt2_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi1_smt2_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi1_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi1_smt2_pengetahuan', observasi_nilai_siswa_transaksi1_smt2_pengetahuan='$observasi_nilai_siswa_transaksi1_smt2_pengetahuan', penugasan_nilai_siswa_transaksi1_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi1_smt2_pengetahuan', rerata_nilai_siswa_transaksi1_smt2_pengetahuan='$rerata_nilai_siswa_transaksi1_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi1_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi1_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi1_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi1_smt2_pengetahuan', uas_nilai_siswa_transaksi1_smt2_pengetahuan='$uas_nilai_siswa_transaksi1_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi1_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi1_smt2_pengetahuan', na_uas_nilai_siswa_transaksi1_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi1_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi1_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi1_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt2_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi1_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi1_smt2_pengetahuan', observasi_nilai_siswa_transaksi1_smt2_pengetahuan='$observasi_nilai_siswa_transaksi1_smt2_pengetahuan', penugasan_nilai_siswa_transaksi1_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi1_smt2_pengetahuan', rerata_nilai_siswa_transaksi1_smt2_pengetahuan='$rerata_nilai_siswa_transaksi1_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi1_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi1_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi1_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi1_smt2_pengetahuan', uas_nilai_siswa_transaksi1_smt2_pengetahuan='$uas_nilai_siswa_transaksi1_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi1_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi1_smt2_pengetahuan', na_uas_nilai_siswa_transaksi1_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi1_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi1_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi1_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt2_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -1006,11 +1005,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi2_smt2_pengetahuan       = $json_na_uas_nilai_siswa_transaksi2_smt2_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi2_smt2_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi2_smt2_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi2_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi2_smt2_pengetahuan', observasi_nilai_siswa_transaksi2_smt2_pengetahuan='$observasi_nilai_siswa_transaksi2_smt2_pengetahuan', penugasan_nilai_siswa_transaksi2_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi2_smt2_pengetahuan', rerata_nilai_siswa_transaksi2_smt2_pengetahuan='$rerata_nilai_siswa_transaksi2_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi2_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi2_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi2_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi2_smt2_pengetahuan', uas_nilai_siswa_transaksi2_smt2_pengetahuan='$uas_nilai_siswa_transaksi2_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi2_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi2_smt2_pengetahuan', na_uas_nilai_siswa_transaksi2_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi2_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi2_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi2_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt2_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi2_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi2_smt2_pengetahuan', observasi_nilai_siswa_transaksi2_smt2_pengetahuan='$observasi_nilai_siswa_transaksi2_smt2_pengetahuan', penugasan_nilai_siswa_transaksi2_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi2_smt2_pengetahuan', rerata_nilai_siswa_transaksi2_smt2_pengetahuan='$rerata_nilai_siswa_transaksi2_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi2_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi2_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi2_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi2_smt2_pengetahuan', uas_nilai_siswa_transaksi2_smt2_pengetahuan='$uas_nilai_siswa_transaksi2_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi2_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi2_smt2_pengetahuan', na_uas_nilai_siswa_transaksi2_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi2_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi2_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi2_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt2_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -1027,11 +1026,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi3_smt2_pengetahuan       = $json_na_uas_nilai_siswa_transaksi3_smt2_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi3_smt2_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi3_smt2_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi3_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi3_smt2_pengetahuan', observasi_nilai_siswa_transaksi3_smt2_pengetahuan='$observasi_nilai_siswa_transaksi3_smt2_pengetahuan', penugasan_nilai_siswa_transaksi3_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi3_smt2_pengetahuan', rerata_nilai_siswa_transaksi3_smt2_pengetahuan='$rerata_nilai_siswa_transaksi3_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi3_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi3_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi3_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi3_smt2_pengetahuan', uas_nilai_siswa_transaksi3_smt2_pengetahuan='$uas_nilai_siswa_transaksi3_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi3_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi3_smt2_pengetahuan', na_uas_nilai_siswa_transaksi3_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi3_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi3_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi3_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt2_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi3_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi3_smt2_pengetahuan', observasi_nilai_siswa_transaksi3_smt2_pengetahuan='$observasi_nilai_siswa_transaksi3_smt2_pengetahuan', penugasan_nilai_siswa_transaksi3_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi3_smt2_pengetahuan', rerata_nilai_siswa_transaksi3_smt2_pengetahuan='$rerata_nilai_siswa_transaksi3_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi3_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi3_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi3_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi3_smt2_pengetahuan', uas_nilai_siswa_transaksi3_smt2_pengetahuan='$uas_nilai_siswa_transaksi3_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi3_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi3_smt2_pengetahuan', na_uas_nilai_siswa_transaksi3_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi3_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi3_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi3_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt2_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -1048,11 +1047,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi4_smt2_pengetahuan       = $json_na_uas_nilai_siswa_transaksi4_smt2_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi4_smt2_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi4_smt2_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi4_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi4_smt2_pengetahuan', observasi_nilai_siswa_transaksi4_smt2_pengetahuan='$observasi_nilai_siswa_transaksi4_smt2_pengetahuan', penugasan_nilai_siswa_transaksi4_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi4_smt2_pengetahuan', rerata_nilai_siswa_transaksi4_smt2_pengetahuan='$rerata_nilai_siswa_transaksi4_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi4_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi4_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi4_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi4_smt2_pengetahuan', uas_nilai_siswa_transaksi4_smt2_pengetahuan='$uas_nilai_siswa_transaksi4_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi4_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi4_smt2_pengetahuan', na_uas_nilai_siswa_transaksi4_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi4_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi4_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi4_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt2_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi4_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi4_smt2_pengetahuan', observasi_nilai_siswa_transaksi4_smt2_pengetahuan='$observasi_nilai_siswa_transaksi4_smt2_pengetahuan', penugasan_nilai_siswa_transaksi4_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi4_smt2_pengetahuan', rerata_nilai_siswa_transaksi4_smt2_pengetahuan='$rerata_nilai_siswa_transaksi4_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi4_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi4_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi4_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi4_smt2_pengetahuan', uas_nilai_siswa_transaksi4_smt2_pengetahuan='$uas_nilai_siswa_transaksi4_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi4_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi4_smt2_pengetahuan', na_uas_nilai_siswa_transaksi4_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi4_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi4_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi4_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt2_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -1069,11 +1068,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi5_smt2_pengetahuan       = $json_na_uas_nilai_siswa_transaksi5_smt2_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi5_smt2_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi5_smt2_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi5_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi5_smt2_pengetahuan', observasi_nilai_siswa_transaksi5_smt2_pengetahuan='$observasi_nilai_siswa_transaksi5_smt2_pengetahuan', penugasan_nilai_siswa_transaksi5_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi5_smt2_pengetahuan', rerata_nilai_siswa_transaksi5_smt2_pengetahuan='$rerata_nilai_siswa_transaksi5_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi5_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi5_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi5_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi5_smt2_pengetahuan', uas_nilai_siswa_transaksi5_smt2_pengetahuan='$uas_nilai_siswa_transaksi5_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi5_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi5_smt2_pengetahuan', na_uas_nilai_siswa_transaksi5_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi5_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi5_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi5_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt2_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi5_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi5_smt2_pengetahuan', observasi_nilai_siswa_transaksi5_smt2_pengetahuan='$observasi_nilai_siswa_transaksi5_smt2_pengetahuan', penugasan_nilai_siswa_transaksi5_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi5_smt2_pengetahuan', rerata_nilai_siswa_transaksi5_smt2_pengetahuan='$rerata_nilai_siswa_transaksi5_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi5_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi5_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi5_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi5_smt2_pengetahuan', uas_nilai_siswa_transaksi5_smt2_pengetahuan='$uas_nilai_siswa_transaksi5_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi5_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi5_smt2_pengetahuan', na_uas_nilai_siswa_transaksi5_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi5_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi5_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi5_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt2_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -1090,11 +1089,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi6_smt2_pengetahuan       = $json_na_uas_nilai_siswa_transaksi6_smt2_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi6_smt2_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi6_smt2_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi6_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi6_smt2_pengetahuan', observasi_nilai_siswa_transaksi6_smt2_pengetahuan='$observasi_nilai_siswa_transaksi6_smt2_pengetahuan', penugasan_nilai_siswa_transaksi6_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi6_smt2_pengetahuan', rerata_nilai_siswa_transaksi6_smt2_pengetahuan='$rerata_nilai_siswa_transaksi6_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi6_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi6_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi6_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi6_smt2_pengetahuan', uas_nilai_siswa_transaksi6_smt2_pengetahuan='$uas_nilai_siswa_transaksi6_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi6_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi6_smt2_pengetahuan', na_uas_nilai_siswa_transaksi6_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi6_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi6_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi6_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt2_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi6_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi6_smt2_pengetahuan', observasi_nilai_siswa_transaksi6_smt2_pengetahuan='$observasi_nilai_siswa_transaksi6_smt2_pengetahuan', penugasan_nilai_siswa_transaksi6_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi6_smt2_pengetahuan', rerata_nilai_siswa_transaksi6_smt2_pengetahuan='$rerata_nilai_siswa_transaksi6_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi6_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi6_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi6_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi6_smt2_pengetahuan', uas_nilai_siswa_transaksi6_smt2_pengetahuan='$uas_nilai_siswa_transaksi6_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi6_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi6_smt2_pengetahuan', na_uas_nilai_siswa_transaksi6_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi6_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi6_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi6_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt2_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -1111,11 +1110,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi7_smt2_pengetahuan       = $json_na_uas_nilai_siswa_transaksi7_smt2_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi7_smt2_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi7_smt2_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set  tes_tulis_nilai_siswa_transaksi7_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi7_smt2_pengetahuan', observasi_nilai_siswa_transaksi7_smt2_pengetahuan='$observasi_nilai_siswa_transaksi7_smt2_pengetahuan', penugasan_nilai_siswa_transaksi7_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi7_smt2_pengetahuan', rerata_nilai_siswa_transaksi7_smt2_pengetahuan='$rerata_nilai_siswa_transaksi7_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi7_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi7_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi7_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi7_smt2_pengetahuan', uas_nilai_siswa_transaksi7_smt2_pengetahuan='$uas_nilai_siswa_transaksi7_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi7_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi7_smt2_pengetahuan', na_uas_nilai_siswa_transaksi7_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi7_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi7_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi7_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt2_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set  tes_tulis_nilai_siswa_transaksi7_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi7_smt2_pengetahuan', observasi_nilai_siswa_transaksi7_smt2_pengetahuan='$observasi_nilai_siswa_transaksi7_smt2_pengetahuan', penugasan_nilai_siswa_transaksi7_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi7_smt2_pengetahuan', rerata_nilai_siswa_transaksi7_smt2_pengetahuan='$rerata_nilai_siswa_transaksi7_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi7_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi7_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi7_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi7_smt2_pengetahuan', uas_nilai_siswa_transaksi7_smt2_pengetahuan='$uas_nilai_siswa_transaksi7_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi7_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi7_smt2_pengetahuan', na_uas_nilai_siswa_transaksi7_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi7_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi7_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi7_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt2_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -1132,11 +1131,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi8_smt2_pengetahuan       = $json_na_uas_nilai_siswa_transaksi8_smt2_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi8_smt2_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi8_smt2_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi8_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi8_smt2_pengetahuan', observasi_nilai_siswa_transaksi8_smt2_pengetahuan='$observasi_nilai_siswa_transaksi8_smt2_pengetahuan', penugasan_nilai_siswa_transaksi8_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi8_smt2_pengetahuan', rerata_nilai_siswa_transaksi8_smt2_pengetahuan='$rerata_nilai_siswa_transaksi8_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi8_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi8_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi8_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi8_smt2_pengetahuan', uas_nilai_siswa_transaksi8_smt2_pengetahuan='$uas_nilai_siswa_transaksi8_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi8_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi8_smt2_pengetahuan', na_uas_nilai_siswa_transaksi8_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi8_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi8_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi8_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt2_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi8_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi8_smt2_pengetahuan', observasi_nilai_siswa_transaksi8_smt2_pengetahuan='$observasi_nilai_siswa_transaksi8_smt2_pengetahuan', penugasan_nilai_siswa_transaksi8_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi8_smt2_pengetahuan', rerata_nilai_siswa_transaksi8_smt2_pengetahuan='$rerata_nilai_siswa_transaksi8_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi8_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi8_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi8_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi8_smt2_pengetahuan', uas_nilai_siswa_transaksi8_smt2_pengetahuan='$uas_nilai_siswa_transaksi8_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi8_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi8_smt2_pengetahuan', na_uas_nilai_siswa_transaksi8_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi8_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi8_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi8_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt2_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -1153,11 +1152,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi9_smt2_pengetahuan       = $json_na_uas_nilai_siswa_transaksi9_smt2_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi9_smt2_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi9_smt2_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi9_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi9_smt2_pengetahuan', observasi_nilai_siswa_transaksi9_smt2_pengetahuan='$observasi_nilai_siswa_transaksi9_smt2_pengetahuan', penugasan_nilai_siswa_transaksi9_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi9_smt2_pengetahuan', rerata_nilai_siswa_transaksi9_smt2_pengetahuan='$rerata_nilai_siswa_transaksi9_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi9_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi9_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi9_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi9_smt2_pengetahuan', uas_nilai_siswa_transaksi9_smt2_pengetahuan='$uas_nilai_siswa_transaksi9_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi9_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi9_smt2_pengetahuan', na_uas_nilai_siswa_transaksi9_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi9_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi9_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi9_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt2_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi9_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi9_smt2_pengetahuan', observasi_nilai_siswa_transaksi9_smt2_pengetahuan='$observasi_nilai_siswa_transaksi9_smt2_pengetahuan', penugasan_nilai_siswa_transaksi9_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi9_smt2_pengetahuan', rerata_nilai_siswa_transaksi9_smt2_pengetahuan='$rerata_nilai_siswa_transaksi9_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi9_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi9_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi9_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi9_smt2_pengetahuan', uas_nilai_siswa_transaksi9_smt2_pengetahuan='$uas_nilai_siswa_transaksi9_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi9_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi9_smt2_pengetahuan', na_uas_nilai_siswa_transaksi9_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi9_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi9_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi9_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt2_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -1174,11 +1173,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi10_smt2_pengetahuan       = $json_na_uas_nilai_siswa_transaksi10_smt2_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi10_smt2_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi10_smt2_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi10_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi10_smt2_pengetahuan', observasi_nilai_siswa_transaksi10_smt2_pengetahuan='$observasi_nilai_siswa_transaksi10_smt2_pengetahuan', penugasan_nilai_siswa_transaksi10_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi10_smt2_pengetahuan', rerata_nilai_siswa_transaksi10_smt2_pengetahuan='$rerata_nilai_siswa_transaksi10_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi10_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi10_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi10_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi10_smt2_pengetahuan', uas_nilai_siswa_transaksi10_smt2_pengetahuan='$uas_nilai_siswa_transaksi10_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi10_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi10_smt2_pengetahuan', na_uas_nilai_siswa_transaksi10_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi10_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi10_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi10_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt2_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set tes_tulis_nilai_siswa_transaksi10_smt2_pengetahuan='$tes_tulis_nilai_siswa_transaksi10_smt2_pengetahuan', observasi_nilai_siswa_transaksi10_smt2_pengetahuan='$observasi_nilai_siswa_transaksi10_smt2_pengetahuan', penugasan_nilai_siswa_transaksi10_smt2_pengetahuan='$penugasan_nilai_siswa_transaksi10_smt2_pengetahuan', rerata_nilai_siswa_transaksi10_smt2_pengetahuan='$rerata_nilai_siswa_transaksi10_smt2_pengetahuan', nh_remidi_nilai_siswa_transaksi10_smt2_pengetahuan='$nh_remidi_nilai_siswa_transaksi10_smt2_pengetahuan', nah_kd_nilai_siswa_transaksi10_smt2_pengetahuan='$nah_kd_nilai_siswa_transaksi10_smt2_pengetahuan', uas_nilai_siswa_transaksi10_smt2_pengetahuan='$uas_nilai_siswa_transaksi10_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi10_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi10_smt2_pengetahuan', na_uas_nilai_siswa_transaksi10_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi10_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi10_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi10_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt2_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -1192,11 +1191,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
   $na_uas_nilai_siswa_transaksi11_smt2_pengetahuan       = $json_na_uas_nilai_siswa_transaksi11_smt2_pengetahuan[$i];
   $rerata_akhir_nilai_siswa_transaksi11_smt2_pengetahuan = $json_rerata_akhir_nilai_siswa_transaksi11_smt2_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set uts_nilai_siswa_transaksi11_smt2_pengetahuan='$uts_nilai_siswa_transaksi11_smt2_pengetahuan', uts_remidi_nilai_siswa_transaksi11_smt2_pengetahuan='$uts_remidi_nilai_siswa_transaksi11_smt2_pengetahuan', na_uts_nilai_siswa_transaksi11_smt2_pengetahuan='$na_uts_nilai_siswa_transaksi11_smt2_pengetahuan', uas_nilai_siswa_transaksi11_smt2_pengetahuan='$uas_nilai_siswa_transaksi11_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi11_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi11_smt2_pengetahuan', na_uas_nilai_siswa_transaksi11_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi11_smt2_pengetahuan', rerata_akhir_nilai_siswa_transaksi11_smt2_pengetahuan='$rerata_akhir_nilai_siswa_transaksi11_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt2_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set uts_nilai_siswa_transaksi11_smt2_pengetahuan='$uts_nilai_siswa_transaksi11_smt2_pengetahuan', uts_remidi_nilai_siswa_transaksi11_smt2_pengetahuan='$uts_remidi_nilai_siswa_transaksi11_smt2_pengetahuan', na_uts_nilai_siswa_transaksi11_smt2_pengetahuan='$na_uts_nilai_siswa_transaksi11_smt2_pengetahuan', uas_nilai_siswa_transaksi11_smt2_pengetahuan='$uas_nilai_siswa_transaksi11_smt2_pengetahuan', uas_remidi_nilai_siswa_transaksi11_smt2_pengetahuan='$uas_remidi_nilai_siswa_transaksi11_smt2_pengetahuan', na_uas_nilai_siswa_transaksi11_smt2_pengetahuan='$na_uas_nilai_siswa_transaksi11_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt2_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }
@@ -1204,11 +1203,11 @@ for ($i=0; $i <$jumlah_siswa; $i++) {
 for ($i=0; $i <$jumlah_siswa; $i++) {
   $nilai_akhir_nilai_siswa_transaksi1_smt2_pengetahuan    = $json_nilai_akhir_siswa_transaksi_smt2_pengetahuan[$i];
   $nis_siswa = $json_nis_siswa[$i];
-  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set nilai_akhir_nilai_siswa_transaksi_smt2_pengetahuan='$nilai_akhir_nilai_siswa_transaksi1_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && nama_kelas_nilai_siswa_transaksi_smt2_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$id_mata_pelajaran'";
+  $update_nilaiSiswa = "UPDATE nilai_siswa_transaksi_smt2_pengetahuan set nilai_akhir_nilai_siswa_transaksi_smt2_pengetahuan='$nilai_akhir_nilai_siswa_transaksi1_smt2_pengetahuan' where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa' && kd_kelas_daftar_nilai_siswa_transaksi_smt2_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$kd_mata_pelajaran'";
   if (mysqli_query($connect, $update_nilaiSiswa)) {
   }
   else {
-    echo "Gagal update nilai";
+    echo "Gagal update nilai".mysqli_error();
     echo "</br>";
   }
 }

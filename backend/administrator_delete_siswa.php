@@ -8,6 +8,7 @@ $row = mysqli_fetch_array($tampil);
 
   $hapus_foto   = "../frontend/img/foto/siswa/".$nis_siswa;
   $deleteSiswa  = "DELETE from data_siswa where nis_siswa='$nis_siswa';";
+  $deleteSiswa .= "DELETE from pembayaran where nis_siswa_pembayaran='$nis_siswa';";
   $deleteSiswa .= "DELETE from data_wali where nis_siswa_wali='$nis_siswa';";
   $deleteSiswa .= "DELETE from nilai_siswa_transaksi_smt1_pengetahuan where nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan='$nis_siswa';";
   $deleteSiswa .= "DELETE from nilai_siswa_transaksi_smt2_pengetahuan where nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan='$nis_siswa'";

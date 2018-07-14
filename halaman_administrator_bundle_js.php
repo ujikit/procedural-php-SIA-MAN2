@@ -86,29 +86,29 @@ $('.datepicker').datepicker({
 
 		//setelah masuk fungsi detailSemuaPengampuMataPelajaran
     function editPengampuMataPelajaran(x){
-      var id_mata_pelajaran_transaksi=x;
+      var kd_mata_pelajaran_transaksi=x;
       $("#editPengampuMataPelajaran").modal("show");
-      $("#edit").load("halaman_administrator_edit_pengampu_mata_pelajaran.php?id_mata_pelajaran_transaksi="+id_mata_pelajaran_transaksi);
+      $("#edit").load("halaman_administrator_edit_pengampu_mata_pelajaran.php?kd_mata_pelajaran_transaksi="+kd_mata_pelajaran_transaksi);
     }
     function deletePengampuMataPelajaran(x,y,z,xx){
-      var id_mata_pelajaran_transaksi=x;
-	    var id_kelas_daftar=y;
-	    var id_mata_pelajaran_mata_pelajaran_transaksi=z;
+      var kd_mata_pelajaran_transaksi=x;
+	    var kd_kelas_daftar=y;
+	    var kd_mata_pelajaran_mata_pelajaran_transaksi=z;
 	    var nip_pegawai=xx;
       $("#deletePengampuMataPelajaran").modal("show");
-      $("#delete").load("halaman_administrator_delete_pengampu_mata_pelajaran.php?id_mata_pelajaran_transaksi="+id_mata_pelajaran_transaksi+"&id_kelas_daftar="+id_kelas_daftar+"&id_mata_pelajaran_mata_pelajaran_transaksi="+id_mata_pelajaran_mata_pelajaran_transaksi+"&nip_pegawai="+nip_pegawai);
+      $("#delete").load("halaman_administrator_delete_pengampu_mata_pelajaran.php?kd_mata_pelajaran_transaksi="+kd_mata_pelajaran_transaksi+"&kd_kelas_daftar="+kd_kelas_daftar+"&kd_mata_pelajaran_mata_pelajaran_transaksi="+kd_mata_pelajaran_mata_pelajaran_transaksi+"&nip_pegawai="+nip_pegawai);
     }
 		function segarkanPengampuMataPelajaran(x){
-      var id_mata_pelajaran_transaksi=x;
+      var kd_mata_pelajaran_transaksi=x;
       $("#segarkanPengampuMataPelajaran").modal("show");
-      $("#segarkan").load("halaman_administrator_segarkan_pengampu_mata_pelajaran.php?id_mata_pelajaran_transaksi="+id_mata_pelajaran_transaksi);
+      $("#segarkan").load("halaman_administrator_segarkan_pengampu_mata_pelajaran.php?kd_mata_pelajaran_transaksi="+kd_mata_pelajaran_transaksi);
     }
 		//end detailSemuaPengampuMataPelajaran
 
 		function detailSemuaSiswaPerKelas(x,y){
-      var id_kelas_daftar=x;
+      var kd_kelas_daftar=x;
       var kelompok_kelas_kelas_transaksi=y;
-      $("#tampilSiswaPerKelas").load("halaman_administrator_daftar_siswa_perkelas.php?id_kelas_daftar="+id_kelas_daftar+"&kelompok_kelas_kelas_transaksi="+kelompok_kelas_kelas_transaksi);
+      $("#tampilSiswaPerKelas").load("halaman_administrator_daftar_siswa_perkelas.php?kd_kelas_daftar="+kd_kelas_daftar+"&kelompok_kelas_kelas_transaksi="+kelompok_kelas_kelas_transaksi);
     }
 		function detailSemuaSiswaPerKelas_NilaiPerSiswa(x){
 			var nis_siswa=x;
@@ -148,6 +148,19 @@ $('.datepicker').datepicker({
 		}
 	</script>
 
+	<script type="text/javascript">
+	function detailPembayaranSiswa(x){
+		var id_pembayaran=x;
+		$("#detailPembayaranSiswa").modal("show");
+		$("#tampil").load("halaman_administrator_detail_pembayaran_siswa.php?id_pembayaran="+id_pembayaran);
+	}
+	function editPembayaranSiswa(x){
+		var id_pembayaran=x;
+		$("#editPembayaranSiswa").modal("show");
+		$("#edit").load("halaman_administrator_edit_pembayaran_siswa.php?id_pembayaran="+id_pembayaran);
+	}
+	</script>
+
 <!--END ADMINISTRATOR-->
 
 <!--GURU-->
@@ -161,16 +174,16 @@ function detailKDPerKelas(x,y,z){
 	$("#tampilPengampuMataPelajaran").load("halaman_guru_input_kd_mapel_load.php?kd_kelas_daftar_mata_pelajaran_transaksi="+kd_kelas_daftar_mata_pelajaran_transaksi+"&kd_mata_pelajaran_transaksi="+kd_mata_pelajaran_transaksi+"&nip_pegawai_mata_pelajaran_transaksi="+nip_pegawai_mata_pelajaran_transaksi);
 }
 function detailSemuaNilaiSiswa(x,y,z){
-	var id_kelas_daftar=x;
-	var id_mata_pelajaran_mata_pelajaran_transaksi=y;
-	var nip_pegawai_mata_pelajaran_transaksi=z;
-	$("#tampilPengampuMataPelajaran").load("halaman_guru_daftar_nilai_siswa.php?id_kelas_daftar="+id_kelas_daftar+"&id_mata_pelajaran_mata_pelajaran_transaksi="+id_mata_pelajaran_mata_pelajaran_transaksi+"&nip_pegawai_mata_pelajaran_transaksi="+nip_pegawai_mata_pelajaran_transaksi);
+	var kd_kelas_daftar=x;
+	var kd_mata_pelajaran=y;
+	var nip_pegawai=z;
+	$("#tampilPengampuMataPelajaran").load("halaman_guru_daftar_nilai_siswa.php?kd_kelas_daftar="+kd_kelas_daftar+"&kd_mata_pelajaran="+kd_mata_pelajaran+"&nip_pegawai="+nip_pegawai);
 }
 function detailSemuaNilaiSiswaWaliKelas(x,y,z){
-	var id_kelas_daftar=x;
-	var id_mata_pelajaran_mata_pelajaran_transaksi=y;
+	var kd_kelas_daftar=x;
+	var kd_mata_pelajaran_mata_pelajaran_transaksi=y;
 	var nip_pegawai_mata_pelajaran_transaksi=z;
-	$("#tampilPengampuMataPelajaran").load("halaman_guru_daftar_wali_kelas_nilai.php?id_kelas_daftar="+id_kelas_daftar+"&id_mata_pelajaran_mata_pelajaran_transaksi="+id_mata_pelajaran_mata_pelajaran_transaksi+"&nip_pegawai_mata_pelajaran_transaksi="+nip_pegawai_mata_pelajaran_transaksi);
+	$("#tampilPengampuMataPelajaran").load("halaman_guru_daftar_wali_kelas_nilai.php?kd_kelas_daftar="+kd_kelas_daftar+"&kd_mata_pelajaran_mata_pelajaran_transaksi="+kd_mata_pelajaran_mata_pelajaran_transaksi+"&nip_pegawai_mata_pelajaran_transaksi="+nip_pegawai_mata_pelajaran_transaksi);
 }
 function detailNilai(x){
 	var id_nilai_siswa_transaksi=x;
@@ -226,17 +239,17 @@ function kirimPesanSiswaKePegawai(x){
 
 function detailNilaiTugasPerSiswaSMT1(x,y,z){ // kerangka html ada di navbar menu siswa
 	var nis_siswa=x;
-	var id_kelas_daftar=y;
-	var id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan=z;
+	var kd_kelas_daftar=y;
+	var kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan=z;
 	$("#tampilTugasSiswa").modal("show");
-	$("#tampilTugas").load("halaman_siswa_cek_nilai_tugas_per_siswa_smt1.php?nis_siswa="+nis_siswa+"&id_kelas_daftar="+id_kelas_daftar+"&id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan="+id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan);
+	$("#tampilTugas").load("halaman_siswa_cek_nilai_tugas_per_siswa_smt1.php?nis_siswa="+nis_siswa+"&kd_kelas_daftar="+kd_kelas_daftar+"&kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan="+kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan);
 }
 function detailNilaiTugasPerSiswaSMT2(x,y,z){ // kerangka html ada di navbar menu siswa
 	var nis_siswa=x;
-	var id_kelas_daftar=y;
-	var id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan=z;
+	var kd_kelas_daftar=y;
+	var kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan=z;
 	$("#tampilTugasSiswa").modal("show");
-	$("#tampilTugas").load("halaman_siswa_cek_nilai_tugas_per_siswa_smt2.php?nis_siswa="+nis_siswa+"&id_kelas_daftar="+id_kelas_daftar+"&id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan="+id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan);
+	$("#tampilTugas").load("halaman_siswa_cek_nilai_tugas_per_siswa_smt2.php?nis_siswa="+nis_siswa+"&kd_kelas_daftar="+kd_kelas_daftar+"&kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan="+kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan);
 }
 
 </script>

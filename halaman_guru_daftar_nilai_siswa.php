@@ -5,9 +5,9 @@ $title = "Dashboard Administrator";
 include_once "backend/koneksi.php";
 
 if($_SESSION['nip_pegawai']){
-$id_kelas_daftar = $_GET["id_kelas_daftar"];
-$id_mata_pelajaran = $_GET["id_mata_pelajaran_mata_pelajaran_transaksi"];
-$nip_pegawai = $_GET["nip_pegawai_mata_pelajaran_transaksi"];
+$kd_kelas_daftar = $_GET["kd_kelas_daftar"];
+$kd_mata_pelajaran = $_GET["kd_mata_pelajaran"];
+$nip_pegawai = $_GET["nip_pegawai"];
 
 ?>
 
@@ -25,10 +25,10 @@ $nip_pegawai = $_GET["nip_pegawai_mata_pelajaran_transaksi"];
     </script>
 
     <?php
-    $query_cetakLaporan = "SELECT id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan from nilai_siswa_transaksi_smt1_pengetahuan where nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran'";
+    $query_cetakLaporan = "SELECT kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan from nilai_siswa_transaksi_smt1_pengetahuan where kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran'";
     $tampil = mysqli_query($connect, $query_cetakLaporan);
     $row = mysqli_fetch_array($tampil);
-    $id_mata_pelajaran_nilai_siswa_transaksi = $row['id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan'];
+    $kd_mata_pelajaran_nilai_siswa_transaksi = $row['kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan'];
     ?>
 
     <div class="row" style="margin-bottom:-75px;margin-top:40px;">
@@ -74,7 +74,7 @@ $nip_pegawai = $_GET["nip_pegawai_mata_pelajaran_transaksi"];
         <div class="col-lg-12">
           <div class="container">
             <div class="col-lg-12">
-              <form class="form-signin" action="backend/guru_edit_nilai_siswa.php?id_kelas_daftar=<?php echo $id_kelas_daftar ?>&id_mata_pelajaran=<?php echo $id_mata_pelajaran ?>&nip_pegawai=<?php echo $nip_pegawai ?>" method="post" enctype="multipart/form-data">
+              <form class="form-signin" action="backend/guru_edit_nilai_siswa.php?kd_kelas_daftar=<?php echo $kd_kelas_daftar ?>&kd_mata_pelajaran=<?php echo $kd_mata_pelajaran ?>&nip_pegawai=<?php echo $nip_pegawai ?>" method="post" enctype="multipart/form-data">
 
                 <div id="pengetahuan1">
                   <div style="margin-bottom:15px;font-size:28px;background:white">
@@ -102,7 +102,7 @@ $nip_pegawai = $_GET["nip_pegawai_mata_pelajaran_transaksi"];
                         <tr>
                           <?php
                           $datas = array();
-                          $tampil_dataSem1Pengetahuan = "SELECT guru_kompetensi_dasar_pengetahuan_noDKD_smt1 from guru_kompetensi_dasar_smt1 where guru_kompetensi_dasar_mata_pelajaran_smt1='$id_mata_pelajaran' && guru_kompetensi_dasar_kelas_daftar_smt1='$id_kelas_daftar' && guru_kompetensi_dasar_semester_smt1='1'";
+                          $tampil_dataSem1Pengetahuan = "SELECT guru_kompetensi_dasar_pengetahuan_noDKD_smt1 from guru_kompetensi_dasar_smt1 where guru_kompetensi_dasar_kd_mata_pelajaran_smt1='$kd_mata_pelajaran' && guru_kompetensi_dasar_kd_kelas_daftar_smt1='$kd_kelas_daftar' && guru_kompetensi_dasar_semester_smt1='1'";
                           $tampil = mysqli_query($connect, $tampil_dataSem1Pengetahuan);
                           while($row = mysqli_fetch_array($tampil)){
                             $datas[] = $row;
@@ -216,7 +216,7 @@ $nip_pegawai = $_GET["nip_pegawai_mata_pelajaran_transaksi"];
                         <?php
 
                         $no=1;
-                        $tampil_dataNilaiSiswa = "SELECT * from nilai_siswa_transaksi_smt1_pengetahuan inner join data_siswa on nilai_siswa_transaksi_smt1_pengetahuan.nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan = data_siswa.nis_siswa where id_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$id_mata_pelajaran' && nama_kelas_nilai_siswa_transaksi_smt1_pengetahuan='$id_kelas_daftar' && nip_pegawai_nilai_siswa_transaksi_smt1_pengetahuan='$nip_pegawai' order by nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan asc";
+                        $tampil_dataNilaiSiswa = "SELECT * from nilai_siswa_transaksi_smt1_pengetahuan inner join data_siswa on nilai_siswa_transaksi_smt1_pengetahuan.nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan = data_siswa.nis_siswa where kd_mata_pelajaran_nilai_siswa_transaksi_smt1_pengetahuan='$kd_mata_pelajaran' && kd_kelas_daftar_nilai_siswa_transaksi_smt1_pengetahuan='$kd_kelas_daftar' && nip_pegawai_nilai_siswa_transaksi_smt1_pengetahuan='$nip_pegawai' order by nis_siswa_nilai_siswa_transaksi_smt1_pengetahuan asc";
                         $tampil = mysqli_query($connect, $tampil_dataNilaiSiswa);
                         while($row=mysqli_fetch_array($tampil)){
                         ?>
@@ -1650,7 +1650,7 @@ $nip_pegawai = $_GET["nip_pegawai_mata_pelajaran_transaksi"];
                         <tr>
                           <?php
                           $datas = array();
-                          $tampil_dataSem1Pengetahuan = "SELECT guru_kompetensi_dasar_pengetahuan_noDKD_smt2 from guru_kompetensi_dasar_smt2 where guru_kompetensi_dasar_mata_pelajaran_smt2='$id_mata_pelajaran' && guru_kompetensi_dasar_kelas_daftar_smt2='$id_kelas_daftar' && guru_kompetensi_dasar_semester_smt2='1'";
+                          $tampil_dataSem1Pengetahuan = "SELECT guru_kompetensi_dasar_pengetahuan_noDKD_smt2 from guru_kompetensi_dasar_smt2 where guru_kompetensi_dasar_kd_mata_pelajaran_smt2='$kd_mata_pelajaran' && guru_kompetensi_dasar_kd_kelas_daftar_smt2='$kd_kelas_daftar' && guru_kompetensi_dasar_semester_smt2='2'";
                           $tampil = mysqli_query($connect, $tampil_dataSem1Pengetahuan);
                           while($row = mysqli_fetch_array($tampil)){
                             $datas[] = $row;
@@ -1764,7 +1764,7 @@ $nip_pegawai = $_GET["nip_pegawai_mata_pelajaran_transaksi"];
                         <?php
 
                         $no=1;
-                        $tampil_dataNilaiSiswa = "SELECT * from nilai_siswa_transaksi_smt2_pengetahuan inner join data_siswa on nilai_siswa_transaksi_smt2_pengetahuan.nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan = data_siswa.nis_siswa where id_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$id_mata_pelajaran' && nama_kelas_nilai_siswa_transaksi_smt2_pengetahuan='$id_kelas_daftar' && nip_pegawai_nilai_siswa_transaksi_smt2_pengetahuan='$nip_pegawai' order by nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan asc";
+                        $tampil_dataNilaiSiswa = "SELECT * from nilai_siswa_transaksi_smt2_pengetahuan inner join data_siswa on nilai_siswa_transaksi_smt2_pengetahuan.nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan = data_siswa.nis_siswa where kd_mata_pelajaran_nilai_siswa_transaksi_smt2_pengetahuan='$kd_mata_pelajaran' && kd_kelas_daftar_nilai_siswa_transaksi_smt2_pengetahuan='$kd_kelas_daftar' && nip_pegawai_nilai_siswa_transaksi_smt2_pengetahuan='$nip_pegawai' order by nis_siswa_nilai_siswa_transaksi_smt2_pengetahuan asc";
                         $tampil = mysqli_query($connect, $tampil_dataNilaiSiswa);
                         while($row=mysqli_fetch_array($tampil)){
                         ?>

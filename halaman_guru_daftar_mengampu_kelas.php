@@ -76,17 +76,17 @@ if($_SESSION['nip_pegawai']){
                   <?php
                     $no=1;
 
-                    $tampilDataPegawai = "SELECT * from mata_pelajaran_transaksi inner join kelas_transaksi on mata_pelajaran_transaksi.id_kelas_daftar=kelas_transaksi.id_kelas_daftar where nip_pegawai_mata_pelajaran_transaksi = '$nip_pegawai' order by nama_kelas_mata_pelajaran_transaksi asc";
+                    $tampilDataPegawai = "SELECT * from mata_pelajaran_transaksi inner join kelas_transaksi on mata_pelajaran_transaksi.kd_kelas_daftar_mata_pelajaran_transaksi=kelas_transaksi.kd_kelas_daftar_kelas_transaksi where nip_pegawai_mata_pelajaran_transaksi = '$nip_pegawai' order by kd_kelas_daftar_mata_pelajaran_transaksi asc";
                     $tampil = mysqli_query($connect, $tampilDataPegawai);
                     while($row=mysqli_fetch_array($tampil)){
                   ?>
                   <tr>
                     <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $no++ ?></td>
-                    <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["nama_kelas_mata_pelajaran_transaksi"] ?></td>
-                    <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["wali_kelas_transaksi"] ?></td>
-                    <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["nama_mata_pelajaran_transaksi"] ?></td>
+                    <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["kd_kelas_daftar_mata_pelajaran_transaksi"] ?></td>
+                    <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["nip_pegawai_mata_pelajaran_transaksi"] ?></td>
+                    <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center"><?php echo $row["kd_mata_pelajaran_transaksi"] ?></td>
                     <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center">
-                          <a type="button" class="btn btn-success" href="javascript:detailSemuaNilaiSiswa('<?php echo $row['id_kelas_daftar'] ?>','<?php echo $row['id_mata_pelajaran_mata_pelajaran_transaksi'] ?>','<?php echo $row['nip_pegawai_mata_pelajaran_transaksi'] ?>')" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Input Nilai Siswa</a>
+                          <a type="button" class="btn btn-success" href="javascript:detailSemuaNilaiSiswa('<?php echo $row['kd_kelas_daftar_mata_pelajaran_transaksi'] ?>','<?php echo $row['kd_mata_pelajaran_transaksi'] ?>','<?php echo $row['nip_pegawai_mata_pelajaran_transaksi'] ?>')" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Input Nilai Siswa</a>
                     </td>
                   </tr>
                   <?php  } ?>
@@ -154,7 +154,7 @@ if($_SESSION['nip_pegawai']){
                                       <option value="">Pilih Wali Kelas : </option>
                                       <?php
                                         $no=1;
-                                        $tampilDataJabatan = "select * from data_pegawai";
+                                        $tampilDataJabatan = "SELECT * from data_pegawai";
                                         $tampil = mysqli_query($connect, $tampilDataJabatan);
                                         while($row=mysqli_fetch_array($tampil)){
                                       ?>
@@ -165,11 +165,10 @@ if($_SESSION['nip_pegawai']){
                           </div>
                           </div>
                         </div>
-
                     </div>
                     <div class="modal-footer">
-                              <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
-                              <button class="btn btn-success" type="submit" name="submit">Tambah Data Kelas</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Keluar</button>
+                      <button class="btn btn-success" type="submit" name="submit">Tambah Data Kelas</button>
                     </div>
           </form>
             </div>
@@ -198,14 +197,9 @@ if($_SESSION['nip_pegawai']){
         </div>
     </div>
 
-
     <?php include_once "halaman_administrator_footer.php" ?>
-
     <div class="control-sidebar-bg"></div>
   </div>
-
-
-
 </body>
 </html>
 

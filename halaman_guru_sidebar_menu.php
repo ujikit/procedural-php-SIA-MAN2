@@ -51,11 +51,11 @@ pointer-events: none;
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
-
         <!-- <li class=""><a href="halaman_guru.php"><i class="glyphicon glyphicon-home"></i> <span>Home</span></a></li> -->
         <li class=""><a href="halaman_guru_input_kd_mapel.php"><i class="glyphicon glyphicon-th-list"></i> <span>Panel Input KD</span></a></li>
         <li class=""><a href="halaman_guru_daftar_mengampu_kelas.php"><i class="glyphicon glyphicon-th-list"></i> <span>Panel Input Nilai Siswa</span></a></li>
         <li class=""><a href="halaman_guru_daftar_wali_kelas.php"><i class="glyphicon glyphicon-th-list"></i> <span>Panel Wali Kelas</span></a></li>
+        <li class="header">OPTIONAL NAVIGATION</li>
         <!-- <li class="header">LABELS</li>
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
