@@ -98,10 +98,12 @@ $('.datepicker').datepicker({
       $("#deletePengampuMataPelajaran").modal("show");
       $("#delete").load("halaman_administrator_delete_pengampu_mata_pelajaran.php?kd_mata_pelajaran_transaksi="+kd_mata_pelajaran_transaksi+"&kd_kelas_daftar="+kd_kelas_daftar+"&kd_mata_pelajaran_mata_pelajaran_transaksi="+kd_mata_pelajaran_mata_pelajaran_transaksi+"&nip_pegawai="+nip_pegawai);
     }
-		function segarkanPengampuMataPelajaran(x){
-      var kd_mata_pelajaran_transaksi=x;
+		function segarkanPengampuMataPelajaran(x,y,z){
+      var kd_mata_pelajaran=x;
+      var kd_kelas_daftar=y;
+      var nip_pegawai=z;
       $("#segarkanPengampuMataPelajaran").modal("show");
-      $("#segarkan").load("halaman_administrator_segarkan_pengampu_mata_pelajaran.php?kd_mata_pelajaran_transaksi="+kd_mata_pelajaran_transaksi);
+      $("#segarkan").load("halaman_administrator_segarkan_pengampu_mata_pelajaran.php?kd_mata_pelajaran="+kd_mata_pelajaran+"&kd_kelas_daftar="+kd_kelas_daftar+"&nip_pegawai="+nip_pegawai);
     }
 		//end detailSemuaPengampuMataPelajaran
 

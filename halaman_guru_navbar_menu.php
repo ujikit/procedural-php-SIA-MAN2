@@ -132,7 +132,7 @@ include_once "backend/koneksi.php";
                     <!-- <button href="#" class="btn btn-default btn-flat"><a class="glyphicon glyphicon-cog" style="color:#333"></a>&nbspSetting</button> -->
                   </div>
                   <div class="pull-right">
-                    <a href="backend/logout.php?nama_guru=<?php echo $nama_guru ?>" class="btn btn-default btn-flat"><span class="fa fa-sign-out"></span>&nbspKeluar</a>
+                    <a href="backend/logout.php" class="btn btn-default btn-flat"><span class="fa fa-sign-out"></span>&nbspKeluar</a>
                     <!-- <button href="backend/logout.php?nama_guru=<?php echo $nama_guru ?>" class="btn btn-default btn-flat"><a class="fa fa-sign-out" style="color:#333"></a>&nbspSign Out</button> -->
                   </div>
                 </li>

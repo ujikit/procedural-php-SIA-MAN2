@@ -125,10 +125,10 @@ if($_SESSION['nip_administrator']){
               }
               ?>
               <td style="border-radius:0px;margin:0 auto;text-align:center;position:relative;float:center">
-                <a type="button" class="btn btn-primary" href="javascript:editPengampuMataPelajaran('<?php echo $row['id_mata_pelajaran_transaksi'] ?>')" ><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                <a type="button" class="btn btn-danger" href="javascript:deletePengampuMataPelajaran('<?php echo $row['id_mata_pelajaran_transaksi'] ?>','<?php echo $kd_kelas_daftar ?>','<?php echo $row['id_mata_pelajaran_mata_pelajaran_transaksi']?>','<?php echo $row['nip_pegawai']?>')" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                <a type="button" class="btn btn-success" href="javascript:segarkanPengampuMataPelajaran('<?php echo $row['id_mata_pelajaran_transaksi'] ?>')"><span class="glyphicon glyphicon-ok"></span></a>
-                 <!-- <a type="button" id="segarkan" class="btn btn-success" href="backend/administrator_edit_pengampu_mata_pelajaran.php?id_mata_pelajaran_transaksi=<?php echo $row['id_mata_pelajaran_transaksi'] ?>"><span class="glyphicon glyphicon-ok"></span></a> -->
+                <a type="button" class="btn btn-primary" href="javascript:editPengampuMataPelajaran('<?php echo $row['kd_mata_pelajaran_transaksi'] ?>','<?php echo $kd_kelas_daftar ?>','<?php echo $row['nip_pegawai']?>')" ><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                <a type="button" class="btn btn-danger" href="javascript:deletePengampuMataPelajaran('<?php echo $row['kd_mata_pelajaran_transaksi'] ?>','<?php echo $kd_kelas_daftar ?>','<?php echo $row['nip_pegawai']?>')" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                <a type="button" class="btn btn-success" href="javascript:segarkanPengampuMataPelajaran('<?php echo $row['kd_mata_pelajaran_transaksi'] ?>','<?php echo $kd_kelas_daftar ?>','<?php echo $row['nip_pegawai']?>')"><span class="glyphicon glyphicon-ok"></span></a>
+                 <!-- <a type="button" id="segarkan" class="btn btn-success" href="backend/administrator_edit_pengampu_mata_pelajaran.php?kd_mata_pelajaran_transaksi=<?php echo $row['kd_mata_pelajaran_transaksi'] ?>"><span class="glyphicon glyphicon-ok"></span></a> -->
              </td>
             </tr>
             <?php  } ?>

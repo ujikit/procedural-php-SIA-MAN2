@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 include_once "backend/koneksi.php";
 if($_SESSION['nip_pegawai']){
 
@@ -19,16 +20,14 @@ $nip_pegawai     = $_SESSION['nip_pegawai'];
     $query_tampil_dataPegawai = "SELECT * from data_pegawai inner join mata_pelajaran_transaksi on data_pegawai.nip_pegawai = mata_pelajaran_transaksi.nip_pegawai_mata_pelajaran_transaksi where nip_pegawai='$nip_pegawai' && kd_kelas_daftar_mata_pelajaran_transaksi='$kd_kelas_daftar'";
     $query = mysqli_query($connect, $query_tampil_dataPegawai);
     $row = mysqli_fetch_array($query);
-    $nip_pegawai = $row['nip_pegawai'];
-    $kd_mata_pelajaran_transaksi = $row['kd_mata_pelajaran_transaksi'];
-    $kd_kelas_daftar_mata_pelajaran_transaksi = $row['kd_kelas_daftar_mata_pelajaran_transaksi'];
-    // $kd_kelas_daftar = $row['kd_kelas_daftar'];
+    $kd_mata_pelajaran = $row['kd_mata_pelajaran_transaksi'];
     ?>
-      <form id="formKD" class="form-signin" action="backend/guru_kd_mapel_ubah.php?nip_pegawai=<?php echo $nip_pegawai ?>&kd_mata_pelajaran=<?php echo $kd_mata_pelajaran_transaksi ?>&kd_kelas_daftar=<?php echo $kd_kelas_daftar ?>" method="post" enctype="multipart/form-data">
+      <form id="formKD" class="form-signin" action="backend/guru_kd_mapel_ubah.php?nip_pegawai=<?php echo $nip_pegawai ?>&kd_mata_pelajaran=<?php echo $kd_mata_pelajaran ?>&kd_kelas_daftar=<?php echo $kd_kelas_daftar ?>" method="post" enctype="multipart/form-data">
           <div class="row" style="margin-top:40px;">
             <?php
-            // $query_tampilKKM = "SELECT * from mata_pelajaran_transaksi inner join guru_kompetensi_dasar_smt1 on mata_pelajaran_transaksi.kd_mata_pelajaran_transaksi = guru_kompetensi_dasar_smt1.guru_kompetensi_dasar_mata_pelajaran_smt1 where kd_mata_pelajaran_transaksi='$kd_mata_pelajaran_transaksi'and nip_pegawai_mata_pelajaran_transaksi='$nip_pegawai' and kd_kelas_daftar_mata_pelajaran_transaksi='$kd_kelas_daftar_mata_pelajaran_transaksi'";
-            $query_tampilKKM = "SELECT * from mata_pelajaran_transaksi where kd_mata_pelajaran_transaksi='$kd_mata_pelajaran_transaksi'and nip_pegawai_mata_pelajaran_transaksi='$nip_pegawai' and kd_kelas_daftar_mata_pelajaran_transaksi='$kd_kelas_daftar_mata_pelajaran_transaksi'";
+
+            // $query_tampilKKM = "SELECT * from mata_pelajaran_transaksi inner join guru_kompetensi_dasar_smt1 on mata_pelajaran_transaksi.kd_mata_pelajaran_transaksi = guru_kompetensi_dasar_smt1.guru_kompetensi_dasar_mata_pelajaran_smt1 where kd_mata_pelajaran_transaksi='$kd_mata_pelajaran'and nip_pegawai_mata_pelajaran_transaksi='$nip_pegawai' and kd_kelas_daftar_mata_pelajaran_transaksi='$kd_kelas_daftar'";
+            $query_tampilKKM = "SELECT * from mata_pelajaran_transaksi where kd_mata_pelajaran_transaksi='$kd_mata_pelajaran'and nip_pegawai_mata_pelajaran_transaksi='$nip_pegawai' and kd_kelas_daftar_mata_pelajaran_transaksi='$kd_kelas_daftar'";
             $query = mysqli_query($connect, $query_tampilKKM);
             $row = mysqli_fetch_array($query);
             $kkm = $row['kkm_rendah_mata_pelajaran_transaksi'];
@@ -37,8 +36,8 @@ $nip_pegawai     = $_SESSION['nip_pegawai'];
             ?>
             <input type="hidden" name="kd_kelas_daftar" value="<?php echo $kd_kelas_daftar ?>">
             <input type="hidden" name="nip_pegawai" value="<?php echo $nip_pegawai ?>">
-            <input type="hidden" name="kd_mata_pelajaran_transaksi" value="<?php echo $kd_mata_pelajaran_transaksi ?>">
-            <input type="hidden" name="kd_kelas_daftar_mata_pelajaran_transaksi" value="<?php echo $kd_kelas_daftar_mata_pelajaran_transaksi ?>">
+            <input type="hidden" name="kd_mata_pelajaran_transaksi" value="<?php echo $kd_mata_pelajaran ?>">
+            <input type="hidden" name="kd_kelas_daftar_mata_pelajaran_transaksi" value="<?php echo $kd_kelas_daftar ?>">
             <div class="col-lg-12" style="margin-top:10px;">
               <div class="container">
                 <div class="col-lg-2">
@@ -143,13 +142,9 @@ $nip_pegawai     = $_SESSION['nip_pegawai'];
                   <tbody>
                     <tr>
                       <?php
-
-echo $nip_pegawai."</br>";
-echo $kd_mata_pelajaran_transaksi."</br>";
-echo $kd_kelas_daftar."</br>";
                       $no=1;
                       $datas = array();
-                      $query_tampilDataKD = "SELECT * from guru_kompetensi_dasar_smt1 where guru_kompetensi_dasar_nip_pegawai_smt1='$nip_pegawai' and guru_kompetensi_dasar_kd_mata_pelajaran_smt1='$kd_mata_pelajaran_transaksi' and guru_kompetensi_dasar_kd_kelas_daftar_smt1='$kd_kelas_daftar' and guru_kompetensi_dasar_semester_smt1='1'";
+                      $query_tampilDataKD = "SELECT * from guru_kompetensi_dasar_smt1 where guru_kompetensi_dasar_nip_pegawai_smt1='$nip_pegawai' and guru_kompetensi_dasar_kd_mata_pelajaran_smt1='$kd_mata_pelajaran' and guru_kompetensi_dasar_kd_kelas_daftar_smt1='$kd_kelas_daftar' and guru_kompetensi_dasar_semester_smt1='1'";
                       $query = mysqli_query($connect, $query_tampilDataKD);
                       while($row = mysqli_fetch_assoc($query)){
                         $datas[] = $row;
@@ -205,7 +200,7 @@ echo $kd_kelas_daftar."</br>";
 
                         $no=1;
                         $datas = array();
-                        $query_tampilDataKD = "SELECT * from guru_kompetensi_dasar_smt2 where guru_kompetensi_dasar_nip_pegawai_smt2='$nip_pegawai' and guru_kompetensi_dasar_kd_mata_pelajaran_smt2='$kd_mata_pelajaran_transaksi' and guru_kompetensi_dasar_kd_kelas_daftar_smt2='$kd_kelas_daftar' and guru_kompetensi_dasar_semester_smt2='2'";
+                        $query_tampilDataKD = "SELECT * from guru_kompetensi_dasar_smt2 where guru_kompetensi_dasar_nip_pegawai_smt2='$nip_pegawai' and guru_kompetensi_dasar_kd_mata_pelajaran_smt2='$kd_mata_pelajaran' and guru_kompetensi_dasar_kd_kelas_daftar_smt2='$kd_kelas_daftar' and guru_kompetensi_dasar_semester_smt2='2'";
                         $query = mysqli_query($connect, $query_tampilDataKD);
                         while($row = mysqli_fetch_assoc($query)){
                           $datas[] = $row;

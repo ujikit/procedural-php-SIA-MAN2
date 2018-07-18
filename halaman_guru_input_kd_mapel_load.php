@@ -2,8 +2,7 @@
 session_start();
 include_once "backend/koneksi.php";
 if($_SESSION['nip_pegawai']){
-// $kd_kelas_daftar = $_GET['kd_kelas_daftar_mata_pelajaran_transaksi'];
-$kd_kelas_daftar = "10ipa1";
+$kd_kelas_daftar = $_GET['kd_kelas_daftar_mata_pelajaran_transaksi'];
 ?>
 
 <!DOCTYPE html>
